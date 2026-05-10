@@ -81,7 +81,7 @@
                             <TextBlock Text="Имя" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
                             <TextBox x:Name="FirstNameTextBox" 
                                      Height="40" 
-                                     Padding="12,0"
+                                     Padding="8"
                                      BorderThickness="1"
                                      FontSize="14"/>
                         </StackPanel>
@@ -89,7 +89,7 @@
                             <TextBlock Text="Фамилия" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
                             <TextBox x:Name="LastNameTextBox" 
                                      Height="40" 
-                                     Padding="12,0"
+                                     Padding="8"
                                      BorderThickness="1"
                                      FontSize="14"/>
                         </StackPanel>
@@ -99,7 +99,7 @@
                     <TextBlock Text="Email" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
                     <TextBox x:Name="EmailTextBox" 
                              Height="40" 
-                             Padding="12,0"
+                             Padding="8"
                              BorderThickness="1"
                              FontSize="14"
                              Margin="0,0,0,12"/>
@@ -108,7 +108,7 @@
                     <TextBlock Text="Телефон (необязательно)" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
                     <TextBox x:Name="PhoneTextBox" 
                              Height="40" 
-                             Padding="12,0"
+                             Padding="8"
                              BorderThickness="1"
                              FontSize="14"
                              Margin="0,0,0,12"/>
@@ -123,7 +123,7 @@
                             <TextBlock Text="Пароль" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
                             <PasswordBox x:Name="PasswordBox" 
                                          Height="40" 
-                                         Padding="12,0"
+                                         Padding="8"
                                          BorderThickness="1"
                                          FontSize="14"/>
                         </StackPanel>
@@ -131,7 +131,7 @@
                             <TextBlock Text="Подтвердите" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
                             <PasswordBox x:Name="ConfirmPasswordBox" 
                                          Height="40" 
-                                         Padding="12,0"
+                                         Padding="8"
                                          BorderThickness="1"
                                          FontSize="14"/>
                         </StackPanel>
