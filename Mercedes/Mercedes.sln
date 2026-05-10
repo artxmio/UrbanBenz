@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercedes", "Mercedes.csproj", "{1CAA1040-F90A-42BD-B919-08AB73512D28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mercedes.Data", "..\Mercedes.Data\Mercedes.Data.csproj", "{0F271F1A-E106-497C-947B-7B1F061165D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CAA1040-F90A-42BD-B919-08AB73512D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CAA1040-F90A-42BD-B919-08AB73512D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CAA1040-F90A-42BD-B919-08AB73512D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CAA1040-F90A-42BD-B919-08AB73512D28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F271F1A-E106-497C-947B-7B1F061165D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F271F1A-E106-497C-947B-7B1F061165D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F271F1A-E106-497C-947B-7B1F061165D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F271F1A-E106-497C-947B-7B1F061165D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3EF0782D-7500-4368-89BA-207016C04554}
+	EndGlobalSection
+EndGlobal

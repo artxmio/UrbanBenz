@@ -1,0 +1,17 @@
+﻿<Application x:Class="Mercedes.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Mercedes"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="MercedesBlue">#00A3E0</Color>
+            <Color x:Key="MercedesSilver">#C0C0C0</Color>
+            <Color x:Key="MercedesBlack">#1A1A1A</Color>
+
+            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource MercedesBlue}"/>
+            <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource MercedesSilver}"/>
+            <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource MercedesBlack}"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
