@@ -32,7 +32,6 @@
         <SolidColorBrush x:Key="DangerBrush" Color="#FF4444"/>
         <DropShadowEffect x:Key="DropShadowEffect" BlurRadius="15" ShadowDepth="2" Color="#20000000"/>
 
-        <!-- Стиль для кнопок -->
         <Style x:Key="AccentButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
             <Setter Property="Foreground" Value="White"/>
@@ -59,7 +58,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="16,12">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -67,9 +66,9 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
-                </StackPanel>
+                <Viewbox Grid.Column="0" Stretch="Uniform" HorizontalAlignment="Left" MaxWidth="200">
+                    <TextBlock Text="MERCEDES" FontWeight="Bold" Foreground="#00A6FF"/>
+                </Viewbox>
 
                 <Button Grid.Column="2" 
                         Content="← Назад" 
@@ -77,15 +76,17 @@
                         Foreground="White" 
                         BorderThickness="0" 
                         Cursor="Hand"
+                        Padding="12,6"
                         Click="BackButton_Click"/>
             </Grid>
         </Border>
 
         <!-- Детали автомобиля -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="16">
             <Border Background="{StaticResource CardBackgroundBrush}" 
                     CornerRadius="16" 
-                    Padding="32"
+                    Padding="20"
+                    MaxWidth="1200"
                     Effect="{StaticResource DropShadowEffect}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -94,88 +95,88 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Изображение -->
-                    <Border Grid.Column="0" Background="#2D2D2D" CornerRadius="12" Margin="0,0,24,0">
+                    <Border Grid.Column="0" Background="#2D2D2D" CornerRadius="12" Margin="0,0,16,0">
                         <Grid>
-                            <Image Stretch="Uniform" Margin="16" Source="{Binding Converter={StaticResource ImagePathConverter}}"/>
-                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,12,0,12" Padding="16,8" Margin="0">
-                                <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="14" FontWeight="Bold"/>
+                            <Image Stretch="Uniform" Margin="12" Source="{Binding Converter={StaticResource ImagePathConverter}}"/>
+                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,12,0,12" Padding="12,6" Margin="0">
+                                <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="12" FontWeight="Bold"/>
                             </Border>
                         </Grid>
                     </Border>
 
                     <!-- Информация -->
                     <StackPanel Grid.Column="1">
-                        <TextBlock Text="{Binding Model}" FontSize="32" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
-                        <TextBlock Text="{Binding Price, Converter={StaticResource PriceToRublesConverter}}" FontSize="36" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" Margin="0,0,0,24"/>
+                        <TextBlock Text="{Binding Model}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Price, Converter={StaticResource PriceToRublesConverter}}" FontSize="28" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" Margin="0,0,0,16"/>
 
                         <!-- Характеристики -->
-                        <Border Background="#F8F8F8" CornerRadius="12" Padding="20" Margin="0,0,0,24">
+                        <Border Background="#F8F8F8" CornerRadius="12" Padding="16" Margin="0,0,0,16">
                             <StackPanel>
-                                <TextBlock Text="Характеристики" FontSize="18" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+                                <TextBlock Text="Характеристики" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,12"/>
 
-                                <Grid Margin="0,0,0,12">
+                                <Grid Margin="0,0,0,8">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" Margin="0,0,16,0">
-                                        <TextBlock Text="Тип кузова" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                        <TextBlock Text="{Binding Type, Converter={StaticResource EnumToDescriptionConverter}}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                                        <TextBlock Text="Тип кузова" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Type, Converter={StaticResource EnumToDescriptionConverter}}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Класс" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                        <TextBlock Text="{Binding Class}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <TextBlock Text="Класс" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Class}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Margin="0,0,0,12">
+                                <Grid Margin="0,0,0,8">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" Margin="0,0,16,0">
-                                        <TextBlock Text="Двигатель" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                        <TextBlock Text="{Binding Engine, Converter={StaticResource EnumToDescriptionConverter}}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                                        <TextBlock Text="Двигатель" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Engine, Converter={StaticResource EnumToDescriptionConverter}}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Год выпуска" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                        <TextBlock Text="{Binding Year}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <TextBlock Text="Год выпуска" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Year}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid Margin="0,0,0,12">
+                                <Grid Margin="0,0,0,8">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" Margin="0,0,16,0">
-                                        <TextBlock Text="Цвет" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                        <TextBlock Text="{Binding Color}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                                        <TextBlock Text="Цвет" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Color}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Наличие" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                        <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <TextBlock Text="Наличие" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
                                     </StackPanel>
                                 </Grid>
 
                                 <StackPanel>
-                                    <TextBlock Text="VIN номер" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                    <TextBlock Text="{Binding VinNumber}" FontSize="14" FontFamily="Consolas" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <TextBlock Text="VIN номер" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                    <TextBlock Text="{Binding VinNumber}" FontSize="13" FontFamily="Consolas" Foreground="{StaticResource TextPrimaryBrush}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
 
                         <!-- Выбор даты тест-драйва -->
-                        <Border Background="#F0F7FF" CornerRadius="12" Padding="20" Margin="0,0,0,20">
+                        <Border Background="#F0F7FF" CornerRadius="12" Padding="16" Margin="0,0,0,16">
                             <StackPanel>
-                                <TextBlock Text="Запись на тест-драйв" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,12"/>
+                                <TextBlock Text="Запись на тест-драйв" FontSize="14" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,10"/>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <DatePicker x:Name="TestDriveDatePicker" Grid.Column="0" Margin="0,0,12,0" FirstDayOfWeek="Monday"/>
+                                    <DatePicker x:Name="TestDriveDatePicker" Grid.Column="0" Margin="0,0,8,0" FirstDayOfWeek="Monday"/>
                                     <ComboBox x:Name="TestDriveTimeComboBox" Grid.Column="1" SelectedIndex="9">
                                         <ComboBoxItem>09:00</ComboBoxItem>
                                         <ComboBoxItem>10:00</ComboBoxItem>
@@ -188,26 +189,18 @@
                                         <ComboBoxItem>17:00</ComboBoxItem>
                                         <ComboBoxItem>18:00</ComboBoxItem>
                                     </ComboBox>
-                                    <Button Grid.Column="2" Content="📅 Записаться" Style="{StaticResource AccentButtonStyle}" Click="TestDriveButton_Click"/>
+                                    <Button Grid.Column="2" Content="📅 Записаться" Style="{StaticResource AccentButtonStyle}" Padding="12,6" Click="TestDriveButton_Click"/>
                                 </Grid>
                             </StackPanel>
                         </Border>
-
-                        <!-- Кнопки действий -->
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
                     </StackPanel>
                 </Grid>
             </Border>
         </ScrollViewer>
 
         <!-- Footer -->
-        <Border Grid.Row="2" Background="White" Padding="24,16" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
-            <TextBlock Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Border Grid.Row="2" Background="White" Padding="16,12" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <TextBlock Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
         </Border>
     </Grid>
 </Page>

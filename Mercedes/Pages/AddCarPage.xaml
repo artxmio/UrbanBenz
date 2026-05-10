@@ -26,9 +26,9 @@
         <SolidColorBrush x:Key="BorderBrush" Color="#E0E0E0"/>
 
         <Style x:Key="LabelStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
-            <Setter Property="Margin" Value="0,0,0,6"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
         </Style>
 
         <Style x:Key="InputBorderStyle" TargetType="Border">
@@ -36,20 +36,20 @@
             <Setter Property="CornerRadius" Value="8"/>
             <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Padding" Value="10,6"/>
         </Style>
 
         <Style x:Key="InputStyle" TargetType="TextBox">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
 
         <Style x:Key="AccentButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Padding" Value="24,12"/>
+            <Setter Property="Padding" Value="20,10"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Style.Triggers>
@@ -67,7 +67,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="16,12">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -75,22 +75,22 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="BackButton_Click">
-                    <TextBlock Text="←" FontSize="24" Foreground="White" Margin="0,0,8,0"/>
-                    <TextBlock Text="Назад" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="←" FontSize="20" Foreground="White" Margin="0,0,6,0"/>
+                    <TextBlock Text="Назад" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <TextBlock Grid.Column="1" Text="Добавить автомобиль" FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="Добавить автомобиль" FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
 
         <!-- Форма -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24">
-            <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="32" MaxWidth="800">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="16">
+            <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="20" MaxWidth="800">
                 <StackPanel>
-                    <TextBlock Text="Основная информация" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,24"/>
+                    <TextBlock Text="Основная информация" FontSize="18" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
 
                     <!-- Модель -->
-                    <StackPanel Margin="0,0,0,16">
+                    <StackPanel Margin="0,0,0,12">
                         <TextBlock Text="Модель *" Style="{StaticResource LabelStyle}"/>
                         <Border Style="{StaticResource InputBorderStyle}">
                             <TextBox x:Name="ModelTextBox" Style="{StaticResource InputStyle}" Text=""/>
@@ -98,45 +98,45 @@
                     </StackPanel>
 
                     <!-- Тип, Класс, Двигатель -->
-                    <Grid Margin="0,0,0,16">
+                    <Grid Margin="0,0,0,12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
                             <TextBlock Text="Тип кузова *" Style="{StaticResource LabelStyle}"/>
-                            <ComboBox x:Name="TypeComboBox" SelectedIndex="0" Padding="12,8"/>
+                            <ComboBox x:Name="TypeComboBox" SelectedIndex="0" Padding="10,6" FontSize="13"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="1" Margin="0,0,12,0">
+                        <StackPanel Grid.Column="1" Margin="0,0,8,0">
                             <TextBlock Text="Класс *" Style="{StaticResource LabelStyle}"/>
-                            <ComboBox x:Name="ClassComboBox" SelectedIndex="0" Padding="12,8"/>
+                            <ComboBox x:Name="ClassComboBox" SelectedIndex="0" Padding="10,6" FontSize="13"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Двигатель *" Style="{StaticResource LabelStyle}"/>
-                            <ComboBox x:Name="EngineComboBox" SelectedIndex="0" Padding="12,8"/>
+                            <ComboBox x:Name="EngineComboBox" SelectedIndex="0" Padding="10,6" FontSize="13"/>
                         </StackPanel>
                     </Grid>
 
                     <!-- Год, Цвет, Цена -->
-                    <Grid Margin="0,0,0,16">
+                    <Grid Margin="0,0,0,12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
                             <TextBlock Text="Год выпуска *" Style="{StaticResource LabelStyle}"/>
                             <Border Style="{StaticResource InputBorderStyle}">
                                 <TextBox x:Name="YearTextBox" Style="{StaticResource InputStyle}" Text="2024"/>
                             </Border>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="1" Margin="0,0,12,0">
+                        <StackPanel Grid.Column="1" Margin="0,0,8,0">
                             <TextBlock Text="Цвет *" Style="{StaticResource LabelStyle}"/>
                             <Border Style="{StaticResource InputBorderStyle}">
                                 <TextBox x:Name="ColorTextBox" Style="{StaticResource InputStyle}" Text=""/>
@@ -152,7 +152,7 @@
                     </Grid>
 
                     <!-- VIN -->
-                    <StackPanel Margin="0,0,0,16">
+                    <StackPanel Margin="0,0,0,12">
                         <TextBlock Text="VIN номер *" Style="{StaticResource LabelStyle}"/>
                         <Border Style="{StaticResource InputBorderStyle}">
                             <TextBox x:Name="VinTextBox" Style="{StaticResource InputStyle}" Text="" CharacterCasing="Upper"/>
@@ -160,37 +160,37 @@
                     </StackPanel>
 
                     <!-- Описание -->
-                    <StackPanel Margin="0,0,0,16">
+                    <StackPanel Margin="0,0,0,12">
                         <TextBlock Text="Описание" Style="{StaticResource LabelStyle}"/>
-                        <Border Style="{StaticResource InputBorderStyle}" MinHeight="100">
+                        <Border Style="{StaticResource InputBorderStyle}" MinHeight="80">
                             <TextBox x:Name="DescriptionTextBox" Style="{StaticResource InputStyle}" Text="" TextWrapping="Wrap" AcceptsReturn="True"/>
                         </Border>
                     </StackPanel>
 
                     <!-- Наличие -->
-                    <StackPanel Margin="0,0,0,16">
-                        <CheckBox x:Name="IsAviableCheckBox" Content="Автомобиль в наличии" IsChecked="True" FontSize="14"/>
+                    <StackPanel Margin="0,0,0,12">
+                        <CheckBox x:Name="IsAviableCheckBox" Content="Автомобиль в наличии" IsChecked="True" FontSize="13"/>
                     </StackPanel>
 
                     <!-- Изображение -->
-                    <TextBlock Text="Изображение" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,8"/>
-                    <Grid Margin="0,0,0,24">
+                    <TextBlock Text="Изображение" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                    <Grid Margin="0,0,0,16">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" Background="#F5F5F5" CornerRadius="8" Padding="16" Height="100" BorderBrush="#E0E0E0" BorderThickness="1">
+                        <Border Grid.Column="0" Background="#F5F5F5" CornerRadius="8" Padding="12" Height="80" BorderBrush="#E0E0E0" BorderThickness="1">
                             <StackPanel VerticalAlignment="Center">
-                                <TextBlock x:Name="ImagePathText" Text="Файл не выбран" Foreground="#999" HorizontalAlignment="Center"/>
+                                <TextBlock x:Name="ImagePathText" Text="Файл не выбран" Foreground="#999" HorizontalAlignment="Center" FontSize="12"/>
                             </StackPanel>
                         </Border>
-                        <Button Grid.Column="1" Content="📷 Выбрать файл" Style="{StaticResource AccentButtonStyle}" Margin="12,0,0,0" Padding="16,8" Click="SelectImage_Click"/>
+                        <Button Grid.Column="1" Content="📷" Style="{StaticResource AccentButtonStyle}" Margin="10,0,0,0" Padding="12,6" Click="SelectImage_Click"/>
                     </Grid>
 
                     <!-- Кнопки -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Отмена" Background="#666" Foreground="White" BorderThickness="0" Padding="24,12" Margin="0,0,12,0" Click="CancelButton_Click"/>
-                        <Button Content="💾 Добавить автомобиль" Style="{StaticResource AccentButtonStyle}" Click="SaveButton_Click"/>
+                        <Button Content="Отмена" Background="#666" Foreground="White" BorderThickness="0" Padding="20,10" Margin="0,0,10,0" Click="CancelButton_Click"/>
+                        <Button Content="💾 Добавить" Style="{StaticResource AccentButtonStyle}" Click="SaveButton_Click"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

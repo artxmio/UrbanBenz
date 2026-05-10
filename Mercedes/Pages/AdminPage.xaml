@@ -29,9 +29,9 @@
         <SolidColorBrush x:Key="SuccessBrush" Color="#28A745"/>
 
         <Style x:Key="TabItemStyle" TargetType="TabItem">
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="Padding" Value="16,10"/>
         </Style>
 
         <Style x:Key="DataGridStyle" TargetType="DataGrid">
@@ -41,26 +41,27 @@
             <Setter Property="CanUserResizeRows" Value="False"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
             <Setter Property="GridLinesVisibility" Value="Horizontal"/>
-            <Setter Property="RowHeight" Value="50"/>
+            <Setter Property="RowHeight" Value="45"/>
             <Setter Property="AlternatingRowBackground" Value="#F8F9FA"/>
             <Setter Property="BorderBrush" Value="#E0E0E0"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Margin" Value="0,16,0,0"/>
+            <Setter Property="Margin" Value="0,12,0,0"/>
+            <Setter Property="FontSize" Value="12"/>
         </Style>
 
         <Style x:Key="DataGridHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="#1A1A1A"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Padding" Value="10,6"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
 
         <Style x:Key="ActionButtonStyle" TargetType="Button">
-            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Padding" Value="6,3"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="4,0"/>
+            <Setter Property="Margin" Value="2,0"/>
         </Style>
 
         <Style x:Key="AccentButtonStyle" TargetType="Button">
@@ -85,7 +86,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="16,12">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -94,26 +95,28 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="BackButton_Click">
-                    <TextBlock Text="←" FontSize="24" Foreground="White" Margin="0,0,8,0"/>
-                    <TextBlock Text="На главную" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="←" FontSize="20" Foreground="White" Margin="0,0,6,0"/>
+                    <TextBlock Text="На главную" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
-                    <TextBlock Text=" | Админ-панель" FontSize="24" FontWeight="Bold" Foreground="White" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                    <Viewbox Stretch="Uniform" MaxWidth="150">
+                        <TextBlock Text="MERCEDES" FontWeight="Bold" Foreground="#00A6FF"/>
+                    </Viewbox>
+                    <TextBlock Text=" | Админ" FontSize="18" FontWeight="Bold" Foreground="White" Margin="12,0,0,0" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <TextBlock x:Name="AdminNameText" Text="" Foreground="White" FontSize="14" VerticalAlignment="Center" Margin="0,0,16,0"/>
-                    <Border Background="#FF4444" CornerRadius="20" Padding="16,8" Cursor="Hand" MouseLeftButtonDown="LogoutButton_Click">
-                        <TextBlock Text="Выйти" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="AdminNameText" Text="" Foreground="White" FontSize="12" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                    <Border Background="#FF4444" CornerRadius="16" Padding="12,6" Cursor="Hand" MouseLeftButtonDown="LogoutButton_Click">
+                        <TextBlock Text="Выйти" Foreground="White" FontSize="12" FontWeight="SemiBold"/>
                     </Border>
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- Табы с данными -->
-        <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0" Padding="24,16">
+        <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0" Padding="16,12">
             
             <!-- Пользователи -->
             <TabItem Header="👥 Пользователи" Style="{StaticResource TabItemStyle}">
@@ -124,25 +127,18 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     
-                    <TextBlock Grid.Row="0" Text="Все пользователи системы" FontSize="24" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <TextBlock Grid.Row="0" Text="Все пользователи системы" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
                     
                     <DataGrid x:Name="UsersDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.5*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Роль" Binding="{Binding Role}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridCheckBoxColumn Header="Активен" Binding="{Binding IsActive}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTemplateColumn Header="Действия" Width="120" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                            <DataGridTextColumn Header="Роль" Binding="{Binding Role}" Width="80" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridCheckBoxColumn Header="Активен" Binding="{Binding IsActive}" Width="80" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTemplateColumn Header="Действия" Width="100" HeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -154,7 +150,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     
-                    <Button Grid.Row="2" Content="💾 Сохранить изменения" Style="{StaticResource AccentButtonStyle}" Margin="0,16,0,0" Padding="24,12" FontSize="16" Click="SaveUsers_Click"/>
+                    <Button Grid.Row="2" Content="💾 Сохранить изменения" Style="{StaticResource AccentButtonStyle}" Margin="0,12,0,0" Padding="20,10" FontSize="14" Click="SaveUsers_Click"/>
                 </Grid>
             </TabItem>
 
@@ -172,33 +168,21 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Каталог автомобилей" FontSize="24" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
-                        <Button Grid.Column="1" Content="➕ Добавить" Style="{StaticResource AccentButtonStyle}" Padding="16,8" Click="AddCar_Click"/>
+                        <TextBlock Text="Каталог автомобилей" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        <Button Grid.Column="1" Content="➕ Добавить" Style="{StaticResource AccentButtonStyle}" Padding="12,6" Click="AddCar_Click"/>
                     </Grid>
                     
                     <DataGrid x:Name="CarsDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Модель" Binding="{Binding Model}" Width="1.5*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Тип" Binding="{Binding Type, Converter={StaticResource EnumToDescriptionConverter}}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Класс" Binding="{Binding Class}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Год" Binding="{Binding Year}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Класс" Binding="{Binding Class}" Width="70" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Год" Binding="{Binding Year}" Width="60" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="VIN" Binding="{Binding VinNumber}" Width="1.2*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridCheckBoxColumn Header="Наличие" Binding="{Binding IsAviable}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTemplateColumn Header="Действия" Width="120" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                            <DataGridCheckBoxColumn Header="Наличие" Binding="{Binding IsAviable}" Width="80" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTemplateColumn Header="Действия" Width="100" HeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -210,41 +194,34 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     
-                    <Button Grid.Row="2" Content="💾 Сохранить изменения" Style="{StaticResource AccentButtonStyle}" Margin="0,16,0,0" Padding="24,12" FontSize="16" Click="SaveCars_Click"/>
+                    <Button Grid.Row="2" Content="💾 Сохранить изменения" Style="{StaticResource AccentButtonStyle}" Margin="0,12,0,0" Padding="20,10" FontSize="14" Click="SaveCars_Click"/>
                 </Grid>
             </TabItem>
 
             <!-- Записи на тест-драйв -->
-            <TabItem Header="📅 Записи на тест-драйв" Style="{StaticResource TabItemStyle}">
+            <TabItem Header="📅 Тест-драйвы" Style="{StaticResource TabItemStyle}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     
-                    <TextBlock Grid.Row="0" Text="Все записи на тест-драйв" FontSize="24" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <TextBlock Grid.Row="0" Text="Все записи на тест-драйв" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
                     
                     <DataGrid x:Name="TestDrivesDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding User.FirstName}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding User.Email}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Автомобиль" Binding="{Binding Car.Model}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding RequestedDate, StringFormat=dd.MM.yyyy HH:mm}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        <Setter Property="VerticalAlignment" Value="Center"/>
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
-                            </DataGridTextColumn>
-                            <DataGridTemplateColumn Header="Действия" Width="200" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTemplateColumn Header="Действия" Width="180" HeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Button Content="✅ Подтвердить" Style="{StaticResource ActionButtonStyle}" Background="#28A745" Foreground="White" Tag="{Binding Id}" Click="ConfirmTestDrive_Click" Visibility="{Binding Status, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Pending}"/>
-                                            <Button Content="❌ Отменить" Style="{StaticResource ActionButtonStyle}" Background="#DC3545" Foreground="White" Tag="{Binding Id}" Click="CancelTestDrive_Click"/>
+                                            <Button Content="✅" Style="{StaticResource ActionButtonStyle}" Background="#28A745" Foreground="White" Tag="{Binding Id}" Click="ConfirmTestDrive_Click" Visibility="{Binding Status, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Pending}"/>
+                                            <Button Content="❌" Style="{StaticResource ActionButtonStyle}" Background="#DC3545" Foreground="White" Tag="{Binding Id}" Click="CancelTestDrive_Click"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

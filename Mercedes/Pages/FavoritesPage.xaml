@@ -35,7 +35,7 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Padding" Value="16"/>
-            <Setter Property="Margin" Value="0,0,16,16"/>
+            <Setter Property="Margin" Value="0,0,12,12"/>
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect BlurRadius="15" ShadowDepth="2" Color="#20000000"/>
@@ -60,8 +60,8 @@
         <Style x:Key="ChipStyle" TargetType="Border">
             <Setter Property="Background" Value="#F0F0F0"/>
             <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Padding" Value="12,6"/>
-            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
         </Style>
     </Page.Resources>
 
@@ -73,7 +73,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="16,12">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -82,24 +82,25 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="BackButton_Click">
-                    <TextBlock Text="←" FontSize="24" Foreground="White" Margin="0,0,8,0"/>
-                    <TextBlock Text="Назад" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="←" FontSize="20" Foreground="White" Margin="0,0,6,0"/>
+                    <TextBlock Text="Назад" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
-                </StackPanel>
+                <Viewbox Grid.Column="1" Stretch="Uniform" HorizontalAlignment="Center" MaxWidth="200">
+                    <TextBlock Text="MERCEDES" FontWeight="Bold" Foreground="#00A6FF"/>
+                </Viewbox>
 
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <TextBlock Text="❤️ Избранное" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                    <TextBlock Text="❤️" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <TextBlock Text="Избранное" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>
         </Border>
 
         <!-- Избранные автомобили -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="24,16">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="16,12">
             <StackPanel>
-                <TextBlock x:Name="EmptyMessage" Text="В избранном пока ничего нет" FontSize="24" Foreground="#999" HorizontalAlignment="Center" Margin="0,100,0,0" Visibility="Collapsed"/>
+                <TextBlock x:Name="EmptyMessage" Text="В избранном пока ничего нет" FontSize="20" Foreground="#999" HorizontalAlignment="Center" Margin="0,80,0,0" Visibility="Collapsed"/>
                 
                 <ItemsControl x:Name="FavoritesItemsControl">
                     <ItemsControl.ItemsPanel>
@@ -110,11 +111,10 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Style="{StaticResource CarCardStyle}" Width="320" Tag="{Binding CarId}" MouseLeftButtonDown="CarCard_Click" Cursor="Hand">
+                            <Border Style="{StaticResource CarCardStyle}" Width="300" Tag="{Binding CarId}" MouseLeftButtonDown="CarCard_Click" Cursor="Hand">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="160"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="140"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
@@ -124,44 +124,44 @@
                                     <Border Grid.Row="0" Background="#2D2D2D" CornerRadius="8,8,0,0" Margin="-16,-16,-16,0">
                                         <StackPanel>
                                             <Viewbox Stretch="Uniform">
-                                                <TextBlock Text="🚗" FontSize="64" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <TextBlock Text="🚗" FontSize="48" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             </Viewbox>
-                                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding Car.IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,8,0,8" Padding="12,4" Margin="0">
-                                                <TextBlock Text="{Binding Car.IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="12" FontWeight="Bold"/>
+                                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding Car.IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,8,0,8" Padding="10,4" Margin="0">
+                                                <TextBlock Text="{Binding Car.IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="11" FontWeight="Bold"/>
                                             </Border>
                                         </StackPanel>
                                     </Border>
 
                                     <!-- Модель и цена -->
-                                    <StackPanel Grid.Row="1" Margin="0,12,0,8">
-                                        <TextBlock Text="{Binding Car.Model}" FontSize="20" FontWeight="SemiBold"/>
-                                        <TextBlock Text="{Binding Car.Price, Converter={StaticResource PriceToRublesConverter}}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                                    <StackPanel Grid.Row="1" Margin="0,10,0,6">
+                                        <TextBlock Text="{Binding Car.Model}" FontSize="18" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Car.Price, Converter={StaticResource PriceToRublesConverter}}" FontSize="20" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
                                     </StackPanel>
 
                                     <!-- Характеристики -->
-                                    <WrapPanel Grid.Row="2" Margin="0,0,0,12">
+                                    <WrapPanel Grid.Row="2" Margin="0,0,0,10">
                                         <Border Style="{StaticResource ChipStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="🚙" Margin="0,0,4,0"/>
-                                                <TextBlock Text="{Binding Car.Type, Converter={StaticResource EnumToDescriptionConverter}}"/>
+                                                <TextBlock Text="{Binding Car.Type, Converter={StaticResource EnumToDescriptionConverter}}" FontSize="11"/>
                                             </StackPanel>
                                         </Border>
                                         <Border Style="{StaticResource ChipStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="📅" Margin="0,0,4,0"/>
-                                                <TextBlock Text="{Binding Car.Year}"/>
+                                                <TextBlock Text="{Binding Car.Year}" FontSize="11"/>
                                             </StackPanel>
                                         </Border>
                                         <Border Style="{StaticResource ChipStyle}">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="🎨" Margin="0,0,4,0"/>
-                                                <TextBlock Text="{Binding Car.Color}"/>
+                                                <TextBlock Text="{Binding Car.Color}" FontSize="11"/>
                                             </StackPanel>
                                         </Border>
                                     </WrapPanel>
 
                                     <!-- Кнопка удаления из избранного -->
-                                    <Button Grid.Row="3" Content="💔 Убрать из избранного" Background="#FF6B6B" Foreground="White" BorderThickness="0" Padding="16,8" Margin="0,8,0,0" Click="RemoveFromFavorites_Click" Tag="{Binding CarId}"/>
+                                    <Button Grid.Row="3" Content="💔 Убрать" Background="#FF6B6B" Foreground="White" BorderThickness="0" Padding="12,6" Margin="0,6,0,0" Click="RemoveFromFavorites_Click" Tag="{Binding CarId}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -171,8 +171,8 @@
         </ScrollViewer>
 
         <!-- Footer -->
-        <Border Grid.Row="2" Background="White" Padding="24,16" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
-            <TextBlock Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Border Grid.Row="2" Background="White" Padding="16,12" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <TextBlock Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"/>
         </Border>
     </Grid>
 </Page>

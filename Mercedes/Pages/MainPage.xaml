@@ -16,7 +16,6 @@
       Loaded="Page_Loaded">
 
     <Page.Resources>
-        <!-- Конвертеры -->
         <converters:BoolToYesNoConverter x:Key="BoolToYesNoConverter"/>
         <converters:BoolToStatusColorConverter x:Key="BoolToStatusColorConverter"/>
         <converters:PriceToRublesConverter x:Key="PriceToRublesConverter"/>
@@ -25,7 +24,6 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:ImagePathConverter x:Key="ImagePathConverter"/>
 
-        <!-- Кисти -->
         <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
         <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
         <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
@@ -33,9 +31,7 @@
         <SolidColorBrush x:Key="TextSecondaryBrush" Color="#666666"/>
         <SolidColorBrush x:Key="BorderBrush" Color="#E0E0E0"/>
         <SolidColorBrush x:Key="DangerBrush" Color="#FF4444"/>
-        <DropShadowEffect x:Key="DropShadowEffect" BlurRadius="15" ShadowDepth="2" Color="#20000000"/>
 
-        <!-- Стиль для карточки -->
         <Style x:Key="CarCardStyle" TargetType="Border">
             <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
             <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
@@ -50,7 +46,6 @@
             </Setter>
         </Style>
 
-        <!-- Стиль для кнопок -->
         <Style x:Key="AccentButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
             <Setter Property="Foreground" Value="White"/>
@@ -62,13 +57,9 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#0082CC"/>
                 </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#0066A0"/>
-                </Trigger>
             </Style.Triggers>
         </Style>
 
-        <!-- Стиль для чипов (тегов) -->
         <Style x:Key="ChipStyle" TargetType="Border">
             <Setter Property="Background" Value="#F0F0F0"/>
             <Setter Property="CornerRadius" Value="16"/>
@@ -86,7 +77,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="16,12">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -94,85 +85,65 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Логотип -->
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
-                </StackPanel>
+                <Viewbox Grid.Column="0" Height="32" HorizontalAlignment="Left">
+                    <TextBlock Text="MERCEDES" FontWeight="Bold" Foreground="#00A6FF"/>
+                </Viewbox>
 
-                <!-- Пользователь и выход -->
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <Border Background="#2D2D2D" CornerRadius="20" Padding="16,8" Margin="0,0,8,0" Cursor="Hand" MouseLeftButtonDown="AdminPanelButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Admin}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="⚙️" FontSize="16" Margin="0,0,6,0"/>
-                            <TextBlock Text="Админ" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                        </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="AdminPanelButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Admin}">
+                        <TextBlock Text="⚙️ Админ" Foreground="White" FontSize="12"/>
                     </Border>
-
-                    <Border Background="#2D2D2D" CornerRadius="20" Padding="16,8" Margin="0,0,8,0" Cursor="Hand" MouseLeftButtonDown="FavoritesButton_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="❤️" FontSize="16" Margin="0,0,6,0"/>
-                            <TextBlock Text="Избранное" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                        </StackPanel>
+                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="FavoritesButton_Click">
+                        <TextBlock Text="❤️" FontSize="12"/>
                     </Border>
-
-                    <Border Background="#2D2D2D" CornerRadius="20" Padding="16,8" Margin="0,0,8,0" Cursor="Hand" MouseLeftButtonDown="UserInfoBorder_MouseLeftButtonDown">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="👤" FontSize="16" Margin="0,0,6,0"/>
-                            <TextBlock x:Name="UserNameText" Text="Войти" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                        </StackPanel>
+                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="UserInfoBorder_MouseLeftButtonDown">
+                        <TextBlock x:Name="UserNameText" Text="Войти" Foreground="White" FontSize="12"/>
                     </Border>
-
-                    <Border Background="#FF4444" CornerRadius="20" Padding="16,8" Margin="0,0,8,0" Cursor="Hand" MouseLeftButtonDown="LogoutButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=IsLoggedIn, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Выйти" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                        </StackPanel>
+                    <Border Background="#FF4444" CornerRadius="16" Padding="12,6" Cursor="Hand" MouseLeftButtonDown="LogoutButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=IsLoggedIn, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Выйти" Foreground="White" FontSize="12"/>
                     </Border>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <!-- Панель фильтров -->
-        <Border Grid.Row="1" Background="White" Padding="24" Margin="0,1,0,0">
+        <!-- Filters -->
+        <Border Grid.Row="1" Background="White" Padding="16" Margin="0,1,0,0">
             <StackPanel>
-                <TextBlock Text="Поиск и фильтры" FontSize="20" FontWeight="Light" Margin="0,0,0,16"/>
+                <TextBlock Text="Поиск и фильтры" FontSize="18" FontWeight="Light" Margin="0,0,0,12"/>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                    <!-- Поиск -->
-                    <Border Grid.Column="0" Background="White" CornerRadius="8" BorderBrush="#E0E0E0" BorderThickness="1" Margin="0,0,16,0">
+                    <Border Grid.Row="0" Grid.Column="0" Background="White" CornerRadius="6" BorderBrush="#E0E0E0" BorderThickness="1" Margin="0,0,8,0">
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="🔍" FontSize="16" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                            <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" Background="Transparent" Padding="8,8,8,8" TextChanged="SearchBox_TextChanged"/>
+                            <TextBlock Text="🔍" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="SearchBox" BorderThickness="0" Background="Transparent" Padding="36,8,8,8" TextChanged="SearchBox_TextChanged"/>
                         </Grid>
                     </Border>
 
-                    <!-- Фильтры -->
-                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                        <ComboBox x:Name="TypeFilter" Width="140" Margin="0,0,8,0" SelectionChanged="Filter_Changed"/>
-                        <ComboBox x:Name="ClassFilter" Width="140" Margin="0,0,8,0" SelectionChanged="Filter_Changed"/>
-                        <ComboBox x:Name="EngineFilter" Width="140" Margin="0,0,8,0" SelectionChanged="Filter_Changed"/>
-                    </StackPanel>
+                    <ComboBox Grid.Row="0" Grid.Column="1" x:Name="TypeFilter" Margin="0,0,8,0" SelectionChanged="Filter_Changed"/>
+                    <ComboBox Grid.Row="0" Grid.Column="2" x:Name="ClassFilter" Margin="0,0,8,0" SelectionChanged="Filter_Changed"/>
 
-                    <!-- Кнопки -->
-                    <StackPanel Grid.Column="2" Orientation="Horizontal">
-                        <Button Content="Сбросить" Click="ResetFilters_Click" Background="#666" Foreground="White" BorderThickness="0" Padding="16,8" Margin="0,0,8,0" Cursor="Hand"/>
-                        <Button Content="Обновить" Click="Refresh_Click" Background="#17A2B8" Foreground="White" BorderThickness="0" Padding="16,8" Cursor="Hand"/>
+                    <ComboBox Grid.Row="1" Grid.Column="0" x:Name="EngineFilter" Margin="0,8,8,0" SelectionChanged="Filter_Changed"/>
+                    
+                    <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Сбросить" Click="ResetFilters_Click" Background="#666" Foreground="White" BorderThickness="0" Padding="12,6" Margin="0,8,8,0" Cursor="Hand"/>
+                        <Button Content="Обновить" Click="Refresh_Click" Background="#17A2B8" Foreground="White" BorderThickness="0" Padding="12,6" Margin="0,8,0,0" Cursor="Hand"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
         </Border>
 
-        <!-- Карточки автомобилей -->
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="24,16">
+        <!-- Cars -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="16,12">
             <ItemsControl x:Name="CarsItemsControl">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -182,80 +153,42 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Style="{StaticResource CarCardStyle}" Width="320" Tag="{Binding Id}" MouseLeftButtonDown="CarCard_Click" Cursor="Hand">
+                        <Border Style="{StaticResource CarCardStyle}" MinWidth="280" MaxWidth="400" Tag="{Binding Id}" MouseLeftButtonDown="CarCard_Click" Cursor="Hand">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="160"/>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="140"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <!-- Изображение -->
                                 <Border Grid.Row="0" Background="#2D2D2D" CornerRadius="8,8,0,0" Margin="-16,-16,-16,0">
                                     <Grid>
                                         <Image Stretch="Uniform" Margin="8" Source="{Binding Converter={StaticResource ImagePathConverter}}"/>
-                                        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,8,0,8" Padding="12,4" Margin="0">
-                                            <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="12" FontWeight="Bold"/>
+                                        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,8,0,8" Padding="10,4" Margin="0">
+                                            <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="10" FontWeight="Bold"/>
                                         </Border>
                                     </Grid>
                                 </Border>
 
-                                <!-- Модель и цена -->
-                                <StackPanel Grid.Row="1" Margin="0,12,0,8">
-                                    <TextBlock Text="{Binding Model}" FontSize="20" FontWeight="SemiBold"/>
-                                    <TextBlock Text="{Binding Price, Converter={StaticResource PriceToRublesConverter}}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                                <StackPanel Grid.Row="1" Margin="0,10,0,6">
+                                    <TextBlock Text="{Binding Model}" FontSize="18" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding Price, Converter={StaticResource PriceToRublesConverter}}" FontSize="20" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
                                 </StackPanel>
 
-                                <!-- Характеристики -->
-                                <WrapPanel Grid.Row="2" Margin="0,0,0,12">
+                                <WrapPanel Grid.Row="2" Margin="0,0,0,10">
                                     <Border Style="{StaticResource ChipStyle}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="🚙" Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding Type, Converter={StaticResource EnumToDescriptionConverter}}"/>
-                                        </StackPanel>
+                                        <TextBlock Text="{Binding Type, Converter={StaticResource EnumToDescriptionConverter}}" FontSize="11"/>
                                     </Border>
                                     <Border Style="{StaticResource ChipStyle}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="📅" Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding Year}"/>
-                                        </StackPanel>
+                                        <TextBlock Text="{Binding Year}" FontSize="11"/>
                                     </Border>
                                     <Border Style="{StaticResource ChipStyle}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="🎨" Margin="0,0,4,0"/>
-                                            <TextBlock Text="{Binding Color}"/>
-                                        </StackPanel>
+                                        <TextBlock Text="{Binding Color}" FontSize="11"/>
                                     </Border>
                                 </WrapPanel>
 
-                                <!-- Дополнительная информация -->
-                                <Grid Grid.Row="3" Margin="0,0,0,12">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                        <TextBlock Text="⚡" Margin="0,0,4,0" Opacity="0.6"/>
-                                        <TextBlock Text="{Binding Engine, Converter={StaticResource EnumToDescriptionConverter}}" Opacity="0.8"/>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        <TextBlock Text="🔑" Margin="0,0,4,0" Opacity="0.6"/>
-                                        <TextBlock Text="{Binding Class}" Opacity="0.8"/>
-                                    </StackPanel>
-                                </Grid>
-
-                                <!-- VIN -->
-                                <TextBlock Grid.Row="4" Text="{Binding VinNumber}" FontSize="11" FontFamily="Consolas" Opacity="0.5" Margin="0,0,0,8"/>
-
-                                <!-- Кнопки действий -->
-                                <Grid Grid.Row="5" Margin="0,50,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Content="❤️ В избранное" Style="{StaticResource AccentButtonStyle}" Margin="0,0,4,0" Click="AddToFavorites_Click" Tag="{Binding Id}" Background="#FF6B6B"/>
-                                </Grid>
+                                <Button Grid.Row="3" Content="❤️ В избранное" Style="{StaticResource AccentButtonStyle}" Click="AddToFavorites_Click" Tag="{Binding Id}" Background="#FF6B6B" Padding="12,6" FontSize="12"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -264,14 +197,8 @@
         </ScrollViewer>
 
         <!-- Footer -->
-        <Border Grid.Row="3" Background="White" Padding="24,16" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" VerticalAlignment="Center"/>
-            </Grid>
+        <Border Grid.Row="3" Background="White" Padding="16,12" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <TextBlock Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" HorizontalAlignment="Center" FontSize="12"/>
         </Border>
     </Grid>
 </Page>
