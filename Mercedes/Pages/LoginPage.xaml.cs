@@ -82,7 +82,11 @@ public partial class LoginPage : Page
             MessageBox.Show($"Добро пожаловать, {user.FirstName}!", "Успех", 
                 MessageBoxButton.OK, MessageBoxImage.Information);
 
-            NavigationService?.Navigate(new MainPage());
+            // Перенаправление на админ-панель для админов
+            if (user.Role == Data.Enums.Role.Admin)
+                NavigationService?.Navigate(new AdminPage());
+            else
+                NavigationService?.Navigate(new MainPage());
         }
         catch (Exception ex)
         {

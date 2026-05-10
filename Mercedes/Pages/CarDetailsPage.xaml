@@ -1,0 +1,213 @@
+<Page x:Class="Mercedes.Pages.CarDetailsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Mercedes.Pages"
+      xmlns:converters="clr-namespace:Mercedes.Converters"
+      xmlns:enums="clr-namespace:Mercedes.Data.Enums;assembly=Mercedes.Data"
+      xmlns:services="clr-namespace:Mercedes.Services"
+      xmlns:ext="clr-namespace:Mercedes.Extensions"
+      xmlns:ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1200"
+      Title="Детали автомобиля"
+      FontFamily="Segoe UI Variable, Segoe UI"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <converters:BoolToYesNoConverter x:Key="BoolToYesNoConverter"/>
+        <converters:BoolToStatusColorConverter x:Key="BoolToStatusColorConverter"/>
+        <converters:PriceToRublesConverter x:Key="PriceToRublesConverter"/>
+        <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter"/>
+        <converters:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter"/>
+        <converters:ImagePathConverter x:Key="ImagePathConverter"/>
+
+        <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#666666"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#FF4444"/>
+        <DropShadowEffect x:Key="DropShadowEffect" BlurRadius="15" ShadowDepth="2" Color="#20000000"/>
+
+        <!-- Стиль для кнопок -->
+        <Style x:Key="AccentButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#0082CC"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#0066A0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
+                </StackPanel>
+
+                <Button Grid.Column="2" 
+                        Content="← Назад" 
+                        Background="Transparent" 
+                        Foreground="White" 
+                        BorderThickness="0" 
+                        Cursor="Hand"
+                        Click="BackButton_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- Детали автомобиля -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24">
+            <Border Background="{StaticResource CardBackgroundBrush}" 
+                    CornerRadius="16" 
+                    Padding="32"
+                    Effect="{StaticResource DropShadowEffect}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Изображение -->
+                    <Border Grid.Column="0" Background="#2D2D2D" CornerRadius="12" Margin="0,0,24,0">
+                        <Grid>
+                            <Image Stretch="Uniform" Margin="16" Source="{Binding Converter={StaticResource ImagePathConverter}}"/>
+                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,12,0,12" Padding="16,8" Margin="0">
+                                <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="14" FontWeight="Bold"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- Информация -->
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="{Binding Model}" FontSize="32" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding Price, Converter={StaticResource PriceToRublesConverter}}" FontSize="36" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" Margin="0,0,0,24"/>
+
+                        <!-- Характеристики -->
+                        <Border Background="#F8F8F8" CornerRadius="12" Padding="20" Margin="0,0,0,24">
+                            <StackPanel>
+                                <TextBlock Text="Характеристики" FontSize="18" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                        <TextBlock Text="Тип кузова" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Type, Converter={StaticResource EnumToDescriptionConverter}}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Класс" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Class}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                        <TextBlock Text="Двигатель" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Engine, Converter={StaticResource EnumToDescriptionConverter}}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Год выпуска" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Year}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                        <TextBlock Text="Цвет" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding Color}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Наличие" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <StackPanel>
+                                    <TextBlock Text="VIN номер" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                    <TextBlock Text="{Binding VinNumber}" FontSize="14" FontFamily="Consolas" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Выбор даты тест-драйва -->
+                        <Border Background="#F0F7FF" CornerRadius="12" Padding="20" Margin="0,0,0,20">
+                            <StackPanel>
+                                <TextBlock Text="Запись на тест-драйв" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,12"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <DatePicker x:Name="TestDriveDatePicker" Grid.Column="0" Margin="0,0,12,0" FirstDayOfWeek="Monday"/>
+                                    <ComboBox x:Name="TestDriveTimeComboBox" Grid.Column="1" SelectedIndex="9">
+                                        <ComboBoxItem>09:00</ComboBoxItem>
+                                        <ComboBoxItem>10:00</ComboBoxItem>
+                                        <ComboBoxItem>11:00</ComboBoxItem>
+                                        <ComboBoxItem>12:00</ComboBoxItem>
+                                        <ComboBoxItem>13:00</ComboBoxItem>
+                                        <ComboBoxItem>14:00</ComboBoxItem>
+                                        <ComboBoxItem>15:00</ComboBoxItem>
+                                        <ComboBoxItem>16:00</ComboBoxItem>
+                                        <ComboBoxItem>17:00</ComboBoxItem>
+                                        <ComboBoxItem>18:00</ComboBoxItem>
+                                    </ComboBox>
+                                    <Button Grid.Column="2" Content="📅 Записаться" Style="{StaticResource AccentButtonStyle}" Click="TestDriveButton_Click"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Кнопки действий -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="White" Padding="24,16" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <TextBlock Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+    </Grid>
+</Page>

@@ -1,0 +1,199 @@
+<Page x:Class="Mercedes.Pages.AddCarPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Mercedes.Pages"
+      xmlns:converters="clr-namespace:Mercedes.Converters"
+      xmlns:enums="clr-namespace:Mercedes.Data.Enums;assembly=Mercedes.Data"
+      xmlns:services="clr-namespace:Mercedes.Services"
+      xmlns:ext="clr-namespace:Mercedes.Extensions"
+      xmlns:ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1200"
+      Title="Добавить автомобиль"
+      FontFamily="Segoe UI Variable, Segoe UI"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter"/>
+
+        <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#666666"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#E0E0E0"/>
+
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+            <Setter Property="Margin" Value="0,0,0,6"/>
+        </Style>
+
+        <Style x:Key="InputBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+        </Style>
+
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="AccentButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="24,12"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#0082CC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="BackButton_Click">
+                    <TextBlock Text="←" FontSize="24" Foreground="White" Margin="0,0,8,0"/>
+                    <TextBlock Text="Назад" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" Text="Добавить автомобиль" FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Форма -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24">
+            <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="32" MaxWidth="800">
+                <StackPanel>
+                    <TextBlock Text="Основная информация" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,24"/>
+
+                    <!-- Модель -->
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock Text="Модель *" Style="{StaticResource LabelStyle}"/>
+                        <Border Style="{StaticResource InputBorderStyle}">
+                            <TextBox x:Name="ModelTextBox" Style="{StaticResource InputStyle}" Text=""/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Тип, Класс, Двигатель -->
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                            <TextBlock Text="Тип кузова *" Style="{StaticResource LabelStyle}"/>
+                            <ComboBox x:Name="TypeComboBox" SelectedIndex="0" Padding="12,8"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="0,0,12,0">
+                            <TextBlock Text="Класс *" Style="{StaticResource LabelStyle}"/>
+                            <ComboBox x:Name="ClassComboBox" SelectedIndex="0" Padding="12,8"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Двигатель *" Style="{StaticResource LabelStyle}"/>
+                            <ComboBox x:Name="EngineComboBox" SelectedIndex="0" Padding="12,8"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Год, Цвет, Цена -->
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                            <TextBlock Text="Год выпуска *" Style="{StaticResource LabelStyle}"/>
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <TextBox x:Name="YearTextBox" Style="{StaticResource InputStyle}" Text="2024"/>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="0,0,12,0">
+                            <TextBlock Text="Цвет *" Style="{StaticResource LabelStyle}"/>
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <TextBox x:Name="ColorTextBox" Style="{StaticResource InputStyle}" Text=""/>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Цена (₽) *" Style="{StaticResource LabelStyle}"/>
+                            <Border Style="{StaticResource InputBorderStyle}">
+                                <TextBox x:Name="PriceTextBox" Style="{StaticResource InputStyle}" Text=""/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- VIN -->
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock Text="VIN номер *" Style="{StaticResource LabelStyle}"/>
+                        <Border Style="{StaticResource InputBorderStyle}">
+                            <TextBox x:Name="VinTextBox" Style="{StaticResource InputStyle}" Text="" CharacterCasing="Upper"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Описание -->
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock Text="Описание" Style="{StaticResource LabelStyle}"/>
+                        <Border Style="{StaticResource InputBorderStyle}" MinHeight="100">
+                            <TextBox x:Name="DescriptionTextBox" Style="{StaticResource InputStyle}" Text="" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Наличие -->
+                    <StackPanel Margin="0,0,0,16">
+                        <CheckBox x:Name="IsAviableCheckBox" Content="Автомобиль в наличии" IsChecked="True" FontSize="14"/>
+                    </StackPanel>
+
+                    <!-- Изображение -->
+                    <TextBlock Text="Изображение" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,8"/>
+                    <Grid Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Background="#F5F5F5" CornerRadius="8" Padding="16" Height="100" BorderBrush="#E0E0E0" BorderThickness="1">
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock x:Name="ImagePathText" Text="Файл не выбран" Foreground="#999" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <Button Grid.Column="1" Content="📷 Выбрать файл" Style="{StaticResource AccentButtonStyle}" Margin="12,0,0,0" Padding="16,8" Click="SelectImage_Click"/>
+                    </Grid>
+
+                    <!-- Кнопки -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Отмена" Background="#666" Foreground="White" BorderThickness="0" Padding="24,12" Margin="0,0,12,0" Click="CancelButton_Click"/>
+                        <Button Content="💾 Добавить автомобиль" Style="{StaticResource AccentButtonStyle}" Click="SaveButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,259 @@
+<Page x:Class="Mercedes.Pages.AdminPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Mercedes.Pages"
+      xmlns:converters="clr-namespace:Mercedes.Converters"
+      xmlns:enums="clr-namespace:Mercedes.Data.Enums;assembly=Mercedes.Data"
+      xmlns:services="clr-namespace:Mercedes.Services"
+      xmlns:ext="clr-namespace:Mercedes.Extensions"
+      xmlns:ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1200"
+      Title="Админ-панель"
+      FontFamily="Segoe UI Variable, Segoe UI"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <converters:BoolToYesNoConverter x:Key="BoolToYesNoConverter"/>
+        <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter"/>
+        <converters:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter"/>
+
+        <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#666666"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#FF4444"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="#28A745"/>
+
+        <Style x:Key="TabItemStyle" TargetType="TabItem">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="20,12"/>
+        </Style>
+
+        <Style x:Key="DataGridStyle" TargetType="DataGrid">
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="RowHeight" Value="50"/>
+            <Setter Property="AlternatingRowBackground" Value="#F8F9FA"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,16,0,0"/>
+        </Style>
+
+        <Style x:Key="DataGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="4,0"/>
+        </Style>
+
+        <Style x:Key="AccentButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#0082CC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="BackButton_Click">
+                    <TextBlock Text="←" FontSize="24" Foreground="White" Margin="0,0,8,0"/>
+                    <TextBlock Text="На главную" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
+                    <TextBlock Text=" | Админ-панель" FontSize="24" FontWeight="Bold" Foreground="White" Margin="16,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock x:Name="AdminNameText" Text="" Foreground="White" FontSize="14" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <Border Background="#FF4444" CornerRadius="20" Padding="16,8" Cursor="Hand" MouseLeftButtonDown="LogoutButton_Click">
+                        <TextBlock Text="Выйти" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Табы с данными -->
+        <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0" Padding="24,16">
+            
+            <!-- Пользователи -->
+            <TabItem Header="👥 Пользователи" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Text="Все пользователи системы" FontSize="24" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
+                    
+                    <DataGrid x:Name="UsersDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.5*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Роль" Binding="{Binding Role}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridCheckBoxColumn Header="Активен" Binding="{Binding IsActive}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTemplateColumn Header="Действия" Width="120" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Content="🗑️" Style="{StaticResource ActionButtonStyle}" Background="#DC3545" Foreground="White" Tag="{Binding Id}" Click="DeleteUser_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                    <Button Grid.Row="2" Content="💾 Сохранить изменения" Style="{StaticResource AccentButtonStyle}" Margin="0,16,0,0" Padding="24,12" FontSize="16" Click="SaveUsers_Click"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Автомобили -->
+            <TabItem Header="🚗 Автомобили" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Каталог автомобилей" FontSize="24" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        <Button Grid.Column="1" Content="➕ Добавить" Style="{StaticResource AccentButtonStyle}" Padding="16,8" Click="AddCar_Click"/>
+                    </Grid>
+                    
+                    <DataGrid x:Name="CarsDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Модель" Binding="{Binding Model}" Width="1.5*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Тип" Binding="{Binding Type, Converter={StaticResource EnumToDescriptionConverter}}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Класс" Binding="{Binding Class}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Год" Binding="{Binding Year}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="VIN" Binding="{Binding VinNumber}" Width="1.2*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridCheckBoxColumn Header="Наличие" Binding="{Binding IsAviable}" Width="*" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTemplateColumn Header="Действия" Width="120" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Content="🗑️" Style="{StaticResource ActionButtonStyle}" Background="#DC3545" Foreground="White" Tag="{Binding Id}" Click="DeleteCar_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                    <Button Grid.Row="2" Content="💾 Сохранить изменения" Style="{StaticResource AccentButtonStyle}" Margin="0,16,0,0" Padding="24,12" FontSize="16" Click="SaveCars_Click"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Записи на тест-драйв -->
+            <TabItem Header="📅 Записи на тест-драйв" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Text="Все записи на тест-драйв" FontSize="24" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}"/>
+                    
+                    <DataGrid x:Name="TestDrivesDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Клиент" Binding="{Binding User.FirstName}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding User.Email}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Автомобиль" Binding="{Binding Car.Model}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Дата" Binding="{Binding RequestedDate, StringFormat=dd.MM.yyyy HH:mm}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Действия" Width="200" HeaderStyle="{StaticResource DataGridHeaderStyle}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Button Content="✅ Подтвердить" Style="{StaticResource ActionButtonStyle}" Background="#28A745" Foreground="White" Tag="{Binding Id}" Click="ConfirmTestDrive_Click" Visibility="{Binding Status, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Pending}"/>
+                                            <Button Content="❌ Отменить" Style="{StaticResource ActionButtonStyle}" Background="#DC3545" Foreground="White" Tag="{Binding Id}" Click="CancelTestDrive_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Page>

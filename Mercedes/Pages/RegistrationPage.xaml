@@ -36,8 +36,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="URBAN" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
-                    <TextBlock Text="BENZ" FontSize="32" FontWeight="Bold" Foreground="White" Margin="8,0,0,0"/>
+                    <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
                 </StackPanel>
 
                 <Button Grid.Column="2" 

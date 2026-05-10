@@ -23,6 +23,7 @@
         <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter"/>
         <converters:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:ImagePathConverter x:Key="ImagePathConverter"/>
 
         <!-- Кисти -->
         <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
@@ -100,6 +101,20 @@
 
                 <!-- Пользователь и выход -->
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Border Background="#2D2D2D" CornerRadius="20" Padding="16,8" Margin="0,0,8,0" Cursor="Hand" MouseLeftButtonDown="AdminPanelButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Admin}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="⚙️" FontSize="16" Margin="0,0,6,0"/>
+                            <TextBlock Text="Админ" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#2D2D2D" CornerRadius="20" Padding="16,8" Margin="0,0,8,0" Cursor="Hand" MouseLeftButtonDown="FavoritesButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="❤️" FontSize="16" Margin="0,0,6,0"/>
+                            <TextBlock Text="Избранное" Foreground="White" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
                     <Border Background="#2D2D2D" CornerRadius="20" Padding="16,8" Margin="0,0,8,0" Cursor="Hand" MouseLeftButtonDown="UserInfoBorder_MouseLeftButtonDown">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="👤" FontSize="16" Margin="0,0,6,0"/>
@@ -167,7 +182,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Style="{StaticResource CarCardStyle}" Width="320">
+                        <Border Style="{StaticResource CarCardStyle}" Width="320" Tag="{Binding Id}" MouseLeftButtonDown="CarCard_Click" Cursor="Hand">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="160"/>
@@ -179,14 +194,12 @@
 
                                 <!-- Изображение -->
                                 <Border Grid.Row="0" Background="#2D2D2D" CornerRadius="8,8,0,0" Margin="-16,-16,-16,0">
-                                    <StackPanel>
-                                        <Viewbox Stretch="Uniform">
-                                            <TextBlock Text="🚗" FontSize="64" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Viewbox>
+                                    <Grid>
+                                        <Image Stretch="Uniform" Margin="8" Source="{Binding Converter={StaticResource ImagePathConverter}}"/>
                                         <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,8,0,8" Padding="12,4" Margin="0">
                                             <TextBlock Text="{Binding IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="12" FontWeight="Bold"/>
                                         </Border>
-                                    </StackPanel>
+                                    </Grid>
                                 </Border>
 
                                 <!-- Модель и цена -->
@@ -237,13 +250,11 @@
                                 <TextBlock Grid.Row="4" Text="{Binding VinNumber}" FontSize="11" FontFamily="Consolas" Opacity="0.5" Margin="0,0,0,8"/>
 
                                 <!-- Кнопки действий -->
-                                <Grid Grid.Row="5" Margin="0,8,0,0">
+                                <Grid Grid.Row="5" Margin="0,50,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0" Content="✏️ Редактировать" Style="{StaticResource AccentButtonStyle}" Margin="0,0,4,0" Click="EditCar_Click" Tag="{Binding Id}" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Admin}"/>
-                                    <Button Grid.Column="1" Content="🗑️ Удалить" Background="{StaticResource DangerBrush}" Foreground="White" BorderThickness="0" Padding="8" Margin="4,0,0,0" Click="DeleteCar_Click" Tag="{Binding Id}" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Admin}"/>
+                                    <Button Grid.Column="0" Content="❤️ В избранное" Style="{StaticResource AccentButtonStyle}" Margin="0,0,4,0" Click="AddToFavorites_Click" Tag="{Binding Id}" Background="#FF6B6B"/>
                                 </Grid>
                             </Grid>
                         </Border>
@@ -260,7 +271,6 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" VerticalAlignment="Center"/>
-                <Button Grid.Column="1" Content="➕ Добавить автомобиль" Style="{StaticResource AccentButtonStyle}" FontSize="16" Padding="24,12" Click="AddCar_Click" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Admin}"/>
             </Grid>
         </Border>
     </Grid>

@@ -267,8 +267,15 @@ public partial class MainPage : Page
     {
         if (sender is Button button && button.Tag is Guid carId)
         {
-            MessageBox.Show($"Редактирование автомобиля", "Информация",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            NavigationService?.Navigate(new CarDetailsPage(carId));
+        }
+    }
+
+    private void CarCard_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (sender is Border border && border.Tag is Guid carId)
+        {
+            NavigationService?.Navigate(new CarDetailsPage(carId));
         }
     }
 
@@ -338,5 +345,56 @@ public partial class MainPage : Page
             _sessionService.Logout();
             UpdateUserInfo();
         }
+    }
+
+    private void AddToFavorites_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.Tag is Guid carId)
+        {
+            var currentUser = _sessionService.CurrentUser;
+            if (currentUser == null)
+            {
+                MessageBox.Show("Для добавления в избранное необходимо войти в систему", "Требуется авторизация", MessageBoxButton.OK, MessageBoxImage.Warning);
+                NavigationService?.Navigate(new LoginPage());
+                return;
+            }
+
+            try
+            {
+                var existingFavorite = _context.Favorites
+                    .FirstOrDefault(f => f.UserId == currentUser.Id && f.CarId == carId);
+
+                if (existingFavorite != null)
+                {
+                    MessageBox.Show("Этот автомобиль уже в избранном", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var favorite = new Favorite
+                {
+                    UserId = currentUser.Id,
+                    CarId = carId
+                };
+
+                _context.Favorites.Add(favorite);
+                _context.SaveChanges();
+
+                MessageBox.Show("Автомобиль добавлен в избранное", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
+
+    private void FavoritesButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        NavigationService?.Navigate(new FavoritesPage());
+    }
+
+    private void AdminPanelButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        NavigationService?.Navigate(new AdminPage());
     }
 }

@@ -1,0 +1,178 @@
+<Page x:Class="Mercedes.Pages.FavoritesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Mercedes.Pages"
+      xmlns:converters="clr-namespace:Mercedes.Converters"
+      xmlns:enums="clr-namespace:Mercedes.Data.Enums;assembly=Mercedes.Data"
+      xmlns:services="clr-namespace:Mercedes.Services"
+      xmlns:ext="clr-namespace:Mercedes.Extensions"
+      xmlns:ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1200"
+      Title="Избранное"
+      FontFamily="Segoe UI Variable, Segoe UI"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <converters:BoolToYesNoConverter x:Key="BoolToYesNoConverter"/>
+        <converters:BoolToStatusColorConverter x:Key="BoolToStatusColorConverter"/>
+        <converters:PriceToRublesConverter x:Key="PriceToRublesConverter"/>
+        <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#666666"/>
+        <SolidColorBrush x:Key="DangerBrush" Color="#FF4444"/>
+        <DropShadowEffect x:Key="DropShadowEffect" BlurRadius="15" ShadowDepth="2" Color="#20000000"/>
+
+        <Style x:Key="CarCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="0,0,16,16"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="15" ShadowDepth="2" Color="#20000000"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="AccentButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#0082CC"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ChipStyle" TargetType="Border">
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="24,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="BackButton_Click">
+                    <TextBlock Text="←" FontSize="24" Foreground="White" Margin="0,0,8,0"/>
+                    <TextBlock Text="Назад" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock Text="❤️ Избранное" FontSize="16" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Избранные автомобили -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="24,16">
+            <StackPanel>
+                <TextBlock x:Name="EmptyMessage" Text="В избранном пока ничего нет" FontSize="24" Foreground="#999" HorizontalAlignment="Center" Margin="0,100,0,0" Visibility="Collapsed"/>
+                
+                <ItemsControl x:Name="FavoritesItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource CarCardStyle}" Width="320" Tag="{Binding CarId}" MouseLeftButtonDown="CarCard_Click" Cursor="Hand">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="160"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Изображение -->
+                                    <Border Grid.Row="0" Background="#2D2D2D" CornerRadius="8,8,0,0" Margin="-16,-16,-16,0">
+                                        <StackPanel>
+                                            <Viewbox Stretch="Uniform">
+                                                <TextBlock Text="🚗" FontSize="64" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Viewbox>
+                                            <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding Car.IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,8,0,8" Padding="12,4" Margin="0">
+                                                <TextBlock Text="{Binding Car.IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="12" FontWeight="Bold"/>
+                                            </Border>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Модель и цена -->
+                                    <StackPanel Grid.Row="1" Margin="0,12,0,8">
+                                        <TextBlock Text="{Binding Car.Model}" FontSize="20" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Car.Price, Converter={StaticResource PriceToRublesConverter}}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                                    </StackPanel>
+
+                                    <!-- Характеристики -->
+                                    <WrapPanel Grid.Row="2" Margin="0,0,0,12">
+                                        <Border Style="{StaticResource ChipStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="🚙" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding Car.Type, Converter={StaticResource EnumToDescriptionConverter}}"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Style="{StaticResource ChipStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="📅" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding Car.Year}"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Style="{StaticResource ChipStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="🎨" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding Car.Color}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </WrapPanel>
+
+                                    <!-- Кнопка удаления из избранного -->
+                                    <Button Grid.Row="3" Content="💔 Убрать из избранного" Background="#FF6B6B" Foreground="White" BorderThickness="0" Padding="16,8" Margin="0,8,0,0" Click="RemoveFromFavorites_Click" Tag="{Binding CarId}"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="White" Padding="24,16" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <TextBlock Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+    </Grid>
+</Page>

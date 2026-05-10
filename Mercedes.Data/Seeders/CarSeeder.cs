@@ -11,6 +11,25 @@ public class CarSeeder()
         try
         {
             context.Database.EnsureCreated();
+
+            // Сид админа
+            if (!context.Users.Any())
+            {
+                var adminUser = new User
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Admin",
+                    LastName = "Mercedes",
+                    Email = "admin@mercedes.com",
+                    PasswordHash = HashPassword("admin123"),
+                    Phone = "",
+                    Role = Role.Admin,
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                };
+                context.Users.Add(adminUser);
+            }
+
             if (context.Cars.Any())
             {
                 return;
@@ -25,6 +44,13 @@ public class CarSeeder()
         {
             throw new Exception($"Ошибка при заполнении базы данных: {ex.Message}", ex);
         }
+    }
+
+    private static string HashPassword(string password)
+    {
+        using var sha256 = System.Security.Cryptography.SHA256.Create();
+        var bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        return Convert.ToBase64String(bytes);
     }
 
     private static List<Car> GetSampleCars()
