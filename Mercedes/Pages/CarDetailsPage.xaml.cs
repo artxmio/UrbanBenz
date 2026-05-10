@@ -117,7 +117,6 @@ public partial class CarDetailsPage : Page
         var existingBooking = _context.TestDriveRequests
             .Where(t => t.CarId == _car.Id && t.Status != TestDriveStatus.Cancelled)
             .Where(t => t.RequestedDate.Date == selectedDate.Date)
-            .Where(t => Math.Abs((t.RequestedDate - selectedDate).TotalHours) < 1)
             .FirstOrDefault();
 
         if (existingBooking != null)
