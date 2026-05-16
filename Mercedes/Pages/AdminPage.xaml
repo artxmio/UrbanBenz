@@ -291,32 +291,7 @@
             </TabItem>
 
             <!-- О приложении -->
-            <TabItem Header="ℹ️ О приложении" Style="{StaticResource TabItemStyle}">
-                <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="32">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Viewbox Width="120" Height="40" Margin="0,0,0,24">
-                            <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
-                        </Viewbox>
-                        
-                        <TextBlock Text="Автосалон Mercedes" FontSize="24" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
-                        
-                        <TextBlock Text="Версия 1.0.0" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,24"/>
-                        
-                        <TextBlock Text="© 2024 Mercedes-Benz" FontSize="12" Foreground="#999" HorizontalAlignment="Center"/>
-                        
-                        <Border Background="#F8F8F8" CornerRadius="8" Padding="20" Margin="0,24,0,0">
-                            <StackPanel>
-                                <TextBlock Text="Функционал:" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,12"/>
-                                <TextBlock Text="• Каталог автомобилей Mercedes-Benz" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
-                                <TextBlock Text="• Избранное и покупки" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
-                                <TextBlock Text="• Запись на тест-драйв" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
-                                <TextBlock Text="• Админ-панель" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
-                                <TextBlock Text="• Экспорт данных в Excel" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}"/>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </Border>
-            </TabItem>
+            
 
             <!-- Статистика -->
             <TabItem Header="📊 Статистика" Style="{StaticResource TabItemStyle}">
@@ -415,7 +390,31 @@
                     </Grid>
                 </ScrollViewer>
             </TabItem>
+            <TabItem Header="ℹ️ О приложении" Style="{StaticResource TabItemStyle}">
+                <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="32">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Viewbox Width="120" Height="40" Margin="0,0,0,24">
+                            <TextBlock Text="MERCEDES" FontSize="32" FontWeight="Bold" Foreground="#00A6FF"/>
+                        </Viewbox>
 
+                        <TextBlock Text="Автосалон Mercedes" FontSize="24" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+
+                        <TextBlock Text="© 2026 Mercedes" FontSize="12" Foreground="#999" HorizontalAlignment="Center"/>
+
+                        <Border Background="#F8F8F8" CornerRadius="8" Padding="20" Margin="0,24,0,0">
+                            <StackPanel>
+                                <TextBlock Text="Функционал:" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,12"/>
+                                <TextBlock Text="• Каталог автомобилей Mercedes-Benz" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
+                                <TextBlock Text="• Избранное и покупки" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
+                                <TextBlock Text="• Запись на тест-драйв" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
+                                <TextBlock Text="• Админ-панель" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
+                                <TextBlock Text="• Экспорт данных в Excel" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </TabItem>
         </TabControl>
     </Grid>
 </Page>
