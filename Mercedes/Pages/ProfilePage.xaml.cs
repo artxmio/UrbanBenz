@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using Mercedes.Data.Data;
 using Mercedes.Data.Models;
 using Mercedes.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mercedes.Pages;
 
@@ -42,6 +43,40 @@ public partial class ProfilePage : Page
             LastNameTextBox.Text = user.LastName;
             EmailTextBox.Text = user.Email;
             PhoneTextBox.Text = user.Phone ?? "Не указан";
+            
+            LoadUserSales();
+        }
+    }
+
+    private void LoadUserSales()
+    {
+        try
+        {
+            using var context = new AppDbContext();
+            var currentUser = _sessionService.CurrentUser;
+            if (currentUser == null) return;
+
+            var sales = context.Sales
+                .Include(s => s.Car)
+                .Where(s => s.UserId == currentUser.Id)
+                .OrderByDescending(s => s.CreatedAt)
+                .ToList();
+
+            if (sales.Count == 0)
+            {
+                NoSalesText.Visibility = Visibility.Visible;
+                SalesListView.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                NoSalesText.Visibility = Visibility.Collapsed;
+                SalesListView.Visibility = Visibility.Visible;
+                SalesListView.ItemsSource = sales;
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Ошибка загрузки покупок: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

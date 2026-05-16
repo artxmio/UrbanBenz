@@ -11,7 +11,20 @@ public class RoleToVisibilityConverter : System.Windows.Data.IValueConverter
 
     public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
-        if (parameter?.ToString() == "Admin")
+        var param = parameter?.ToString() ?? "";
+        
+        if (param.StartsWith("!"))
+        {
+            // Отрицание - скрыть для указанной роли
+            var roleStr = param.Substring(1);
+            if (Enum.TryParse<Role>(roleStr, out var role))
+            {
+                return SessionService.IsLoggedIn && SessionService.CurrentUser?.Role == role
+                    ? Visibility.Collapsed
+                    : Visibility.Visible;
+            }
+        }
+        else if (param == "Admin")
         {
             return SessionService.IsLoggedIn && SessionService.CurrentUser?.Role == Role.Admin
                 ? Visibility.Visible

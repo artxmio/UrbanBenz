@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<TestDriveRequest> TestDriveRequests { get; set; }
     public DbSet<Favorite> Favorites { get; set; }
+    public DbSet<Sale> Sales { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

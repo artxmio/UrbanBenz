@@ -90,17 +90,20 @@
                 </Viewbox>
 
                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="AdminPanelButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Admin}">
-                        <TextBlock Text="⚙️ Админ" Foreground="White" FontSize="12"/>
+                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="HelpButton_Click">
+                        <TextBlock Text="❓" Foreground="White" FontSize="12"/>
                     </Border>
-                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="FavoritesButton_Click">
+                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="AboutButton_Click">
+                        <TextBlock Text="ℹ️" Foreground="White" FontSize="12"/>
+                    </Border>
+                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="AdminPanelButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=Admin}">
+                        <TextBlock Text="⚙️" Foreground="White" FontSize="12"/>
+                    </Border>
+                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="FavoritesButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=!Admin}">
                         <TextBlock Text="❤️" FontSize="12"/>
                     </Border>
-                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="UserInfoBorder_MouseLeftButtonDown">
+                    <Border Background="#2D2D2D" CornerRadius="16" Padding="12,6" Margin="0,0,6,0" Cursor="Hand" MouseLeftButtonDown="UserInfoBorder_MouseLeftButtonDown" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=!Admin}">
                         <TextBlock x:Name="UserNameText" Text="Войти" Foreground="White" FontSize="12"/>
-                    </Border>
-                    <Border Background="#FF4444" CornerRadius="16" Padding="12,6" Cursor="Hand" MouseLeftButtonDown="LogoutButton_Click" Visibility="{Binding Source={ext:SessionService}, Path=IsLoggedIn, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <TextBlock Text="Выйти" Foreground="White" FontSize="12"/>
                     </Border>
                 </StackPanel>
             </Grid>
@@ -188,7 +191,7 @@
                                     </Border>
                                 </WrapPanel>
 
-                                <Button Grid.Row="3" Content="❤️ В избранное" Style="{StaticResource AccentButtonStyle}" Click="AddToFavorites_Click" Tag="{Binding Id}" Background="#FF6B6B" Padding="12,6" FontSize="12"/>
+                                <Button Grid.Row="3" Content="❤️ В избранное" Style="{StaticResource AccentButtonStyle}" Click="AddToFavorites_Click" Tag="{Binding Id}" Background="#FF6B6B" Padding="12,6" FontSize="12" Visibility="{Binding Source={ext:SessionService}, Path=CurrentUser, Converter={StaticResource RoleToVisibilityConverter}, ConverterParameter=!Admin}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>

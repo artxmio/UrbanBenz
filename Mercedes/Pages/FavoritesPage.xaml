@@ -160,8 +160,15 @@
                                         </Border>
                                     </WrapPanel>
 
-                                    <!-- Кнопка удаления из избранного -->
-                                    <Button Grid.Row="3" Content="💔 Убрать" Background="#FF6B6B" Foreground="White" BorderThickness="0" Padding="12,6" Margin="0,6,0,0" Click="RemoveFromFavorites_Click" Tag="{Binding CarId}"/>
+                                    <!-- Кнопки действий -->
+                                    <Grid Grid.Row="3" Margin="0,6,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Grid.Column="0" Content="💰 Купить" Background="#28A745" Foreground="White" BorderThickness="0" Padding="8,6" Margin="0,0,4,0" Click="BuyCar_Click" Tag="{Binding CarId}" Visibility="{Binding Car.IsAviable, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                        <Button Grid.Column="1" Content="💔 Убрать" Background="#FF6B6B" Foreground="White" BorderThickness="0" Padding="8,6" Margin="4,0,0,0" Click="RemoveFromFavorites_Click" Tag="{Binding CarId}"/>
+                                    </Grid>
                                 </Grid>
                             </Border>
                         </DataTemplate>

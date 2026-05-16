@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Mercedes.Pages"
+      xmlns:converters="clr-namespace:Mercedes.Converters"
+      xmlns:ext="clr-namespace:Mercedes.Extensions"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1200"
       Title="Профиль"
@@ -11,6 +13,7 @@
       Loaded="Page_Loaded">
 
     <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
         <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
         <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
@@ -51,115 +54,171 @@
             </Grid>
         </Border>
 
-        <!-- Профиль -->
-        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Border Background="{StaticResource CardBackgroundBrush}" 
-                    CornerRadius="16" 
-                    Padding="32,28" 
-                    MaxWidth="480"
-                    MinWidth="320"
-                    Effect="{StaticResource DropShadowEffect}">
+        <!-- Профиль и покупки -->
+        <Grid Grid.Row="1" Margin="24,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Информация о пользователе -->
+            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource CardBackgroundBrush}"  Padding="24" Effect="{StaticResource DropShadowEffect}">
                 <StackPanel>
                     <TextBlock Text="Мой профиль" 
-                               FontSize="24" 
+                               FontSize="20" 
                                FontWeight="Light" 
                                Foreground="{StaticResource TextPrimaryBrush}"
                                HorizontalAlignment="Center"
-                               Margin="0,0,0,24"/>
+                               Margin="0,0,0,20"/>
 
                     <!-- Имя и Фамилия -->
-                    <Grid Margin="0,0,0,12">
+                    <Grid Margin="0,0,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                            <TextBlock Text="Имя" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+                        <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                            <TextBlock Text="Имя" FontSize="12" FontWeight="Medium" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
                             <TextBox x:Name="FirstNameTextBox" 
-                                     Height="40" 
+                                     Height="36" 
                                      Padding="8"
                                      BorderBrush="{StaticResource BorderBrush}" 
                                      BorderThickness="1"
-                                     FontSize="14"
+                                     FontSize="13"
                                      IsReadOnly="True"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
-                            <TextBlock Text="Фамилия" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+                            <TextBlock Text="Фамилия" FontSize="12" FontWeight="Medium" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
                             <TextBox x:Name="LastNameTextBox" 
-                                     Height="40" 
+                                     Height="36" 
                                      Padding="8"
                                      BorderBrush="{StaticResource BorderBrush}" 
                                      BorderThickness="1"
-                                     FontSize="14"
+                                     FontSize="13"
                                      IsReadOnly="True"/>
                         </StackPanel>
                     </Grid>
 
                     <!-- Email -->
-                    <TextBlock Text="Email" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+                    <TextBlock Text="Email" FontSize="12" FontWeight="Medium" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
                     <TextBox x:Name="EmailTextBox" 
-                             Height="40" 
+                             Height="36" 
                              Padding="8"
                              BorderBrush="{StaticResource BorderBrush}" 
                              BorderThickness="1"
-                             FontSize="14"
-                             Margin="0,0,0,12"
+                             FontSize="13"
+                             Margin="0,0,0,10"
                              IsReadOnly="True"/>
 
                     <!-- Телефон -->
-                    <TextBlock Text="Телефон" FontSize="13" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,5"/>
+                    <TextBlock Text="Телефон" FontSize="12" FontWeight="Medium" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
                     <TextBox x:Name="PhoneTextBox" 
-                             Height="40" 
+                             Height="36" 
                              Padding="8"
                              BorderBrush="{StaticResource BorderBrush}" 
                              BorderThickness="1"
-                             FontSize="14"
+                             FontSize="13"
                              Margin="0,0,0,16"
                              IsReadOnly="True"/>
 
                     <!-- Кнопки редактирования -->
-                    <Grid Margin="0,0,0,12">
+                    <Grid Margin="0,0,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="EditButton"
                                 Grid.Column="0"
-                                Content="✏️ Редактировать" 
-                                Height="44" 
+                                Content="✏️" 
+                                Height="36" 
                                 Background="{StaticResource AccentBrush}" 
                                 Foreground="White" 
                                 BorderThickness="0" 
-                                FontSize="14" 
+                                FontSize="13" 
                                 FontWeight="SemiBold"
                                 Cursor="Hand"
-                                Margin="0,0,6,0"
+                                Margin="0,0,4,0"
                                 Click="EditButton_Click"/>
                         <Button x:Name="SaveButton"
                                 Grid.Column="1"
-                                Content="💾 Сохранить" 
-                                Height="44" 
+                                Content="💾" 
+                                Height="36" 
                                 Background="#4CAF50" 
                                 Foreground="White" 
                                 BorderThickness="0" 
-                                FontSize="14" 
+                                FontSize="13" 
                                 FontWeight="SemiBold"
                                 Cursor="Hand"
-                                Margin="6,0,0,0"
+                                Margin="4,0,0,0"
                                 Click="SaveButton_Click"
                                 Visibility="Collapsed"/>
                     </Grid>
 
                     <!-- Кнопка выхода -->
-                    <Button Content="🚪 Выйти" 
-                            Height="44" 
+                    <Button Content="🚪 Выйти из аккаунта" 
+                            Height="36" 
                             Background="#FF4444" 
                             Foreground="White" 
                             BorderThickness="0" 
-                            FontSize="14" 
+                            FontSize="13" 
                             FontWeight="SemiBold"
                             Cursor="Hand"
-                            Click="LogoutButton_Click"/>
+                            Click="LogoutButton_Click"
+                            Visibility="{Binding Source={ext:SessionService}, Path=IsLoggedIn, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Мои покупки -->
+            <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Background="White"  Padding="20" Effect="{StaticResource DropShadowEffect}">
+                <StackPanel>
+                    <TextBlock Text="Мои покупки" FontSize="18" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,12"/>
+                    
+                    <TextBlock x:Name="NoSalesText" Text="У вас пока нет покупок" FontSize="13" Foreground="#999" HorizontalAlignment="Center" Margin="0,20,0,20" Visibility="Collapsed"/>
+                    
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="400">
+                        <ListView x:Name="SalesListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#F8F8F8" CornerRadius="6" Padding="12" Margin="0,0,0,6">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock Text="{Binding Car.Model}" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                                <TextBlock Text="{Binding CreatedAt, StringFormat=dd.MM.yyyy HH:mm}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,0"/>
+                                                <TextBlock Text="{Binding Status}" FontSize="11" Margin="0,2,0,0">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Completed">
+                                                                    <Setter Property="Foreground" Value="#28A745"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Pending">
+                                                                    <Setter Property="Foreground" Value="#FFA500"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Cancelled">
+                                                                    <Setter Property="Foreground" Value="#FF4444"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            
+                                            <TextBlock Grid.Column="1" Text="{Binding Price, StringFormat=N0 ₽}" FontSize="14" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
                 </StackPanel>
             </Border>
         </Grid>

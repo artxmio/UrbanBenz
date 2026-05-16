@@ -1,0 +1,182 @@
+<Page x:Class="Mercedes.Pages.HelpPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Mercedes.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1200"
+      Title="Помощь"
+      FontFamily="Segoe UI Variable, Segoe UI">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#666666"/>
+        <DropShadowEffect x:Key="DropShadowEffect" BlurRadius="15" ShadowDepth="2" Color="#20000000"/>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1A1A1A" Padding="16,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Cursor="Hand" MouseLeftButtonDown="BackButton_Click">
+                    <TextBlock Text="←" FontSize="20" Foreground="White" Margin="0,0,6,0"/>
+                    <TextBlock Text="Назад" FontSize="14" Foreground="White" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" Text="Помощь" FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Контент -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24">
+            <StackPanel MaxWidth="700" HorizontalAlignment="Center">
+                
+                <!-- Как начать -->
+                <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="24" Margin="0,0,0,16" Effect="{StaticResource DropShadowEffect}">
+                    <StackPanel>
+                        <TextBlock Text="🚀 Как начать" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+                        
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="1. Регистрация и вход" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="• Нажмите кнопку 'Войти' в правом верхнем углу" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Если у вас нет аккаунта, нажмите 'Зарегистрироваться'" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Заполните форму регистрации и создайте аккаунт" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel>
+                            <TextBlock Text="2. Просмотр каталога" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="• На главной странице отображаются все доступные автомобили" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Используйте фильтры для поиска по типу, классу и двигателю" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Введите название модели в строку поиска" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Просмотр автомобилей -->
+                <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="24" Margin="0,0,0,16" Effect="{StaticResource DropShadowEffect}">
+                    <StackPanel>
+                        <TextBlock Text="🚗 Просмотр автомобилей" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+                        
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="Карточка автомобиля" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="• Нажмите на карточку автомобиля, чтобы открыть подробную информацию" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• В карточке отображаются: модель, цена, тип кузова, год выпуска и цвет" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Зелёная метка означает, что автомобиль в наличии" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel>
+                            <TextBlock Text="Детальная страница" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="• Полные технические характеристики автомобиля" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• VIN номер для проверки автомобиля" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Кнопка записи на тест-драйв" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Избранное и покупки -->
+                <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="24" Margin="0,0,0,16" Effect="{StaticResource DropShadowEffect}">
+                    <StackPanel>
+                        <TextBlock Text="❤️ Избранное и покупки" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+                        
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="Добавление в избранное" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="• Нажмите кнопку '❤️ В избранное' на карточке автомобиля" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Автомобиль сохранится в вашем избранном" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Перейдите в избранное через кнопку ❤️ в шапке" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel>
+                            <TextBlock Text="Покупка автомобиля" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="• В избранном нажмите кнопку 'Купить' на нужном автомобиле" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Подтвердите покупку в появившемся окне" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Менеджер свяжется с вами для оформления сделки" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Тест-драйв -->
+                <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="24" Margin="0,0,0,16" Effect="{StaticResource DropShadowEffect}">
+                    <StackPanel>
+                        <TextBlock Text="📅 Запись на тест-драйв" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+                        
+                        <StackPanel>
+                            <TextBlock Text="• Откройте страницу автомобиля, нажав на его карточку" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Выберите удобную дату в календаре" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Выберите время из доступных слотов (09:00 - 18:00)" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Нажмите кнопку 'Записаться'" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• На вашу почту придёт подтверждение записи" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Личный кабинет -->
+                <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="24" Margin="0,0,0,16" Effect="{StaticResource DropShadowEffect}">
+                    <StackPanel>
+                        <TextBlock Text="👤 Личный кабинет" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+                        
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="Просмотр профиля" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="• Нажмите на кнопку 'Войти' и перейдите в профиль" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Здесь отображаются ваши личные данные" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Вы можете редактировать имя, фамилию и телефон" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel>
+                            <TextBlock Text="История покупок" FontSize="16" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="• В профиле отображается список всех ваших покупок" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="• Видны статус (в ожидании, завершено, отменено) и дата покупки" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Частые вопросы -->
+                <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="16" Padding="24" Effect="{StaticResource DropShadowEffect}">
+                    <StackPanel>
+                        <TextBlock Text="❓ Частые вопросы" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
+                        
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock Text="Как отменить запись на тест-драйв?" FontSize="15" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="Обратитесь к менеджеру по телефону или напишите на почту." FontSize="13" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock Text="Можно ли вернуть автомобиль после покупки?" FontSize="15" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="Условия возврата обсуждаются индивидуально с менеджером." FontSize="13" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock Text="Как удалить аккаунт?" FontSize="15" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="Для удаления аккаунта обратитесь в поддержку." FontSize="13" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                        
+                        <StackPanel>
+                            <TextBlock Text="Есть ли рассрочка?" FontSize="15" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="Да, доступны различные программы кредитования. Уточните у менеджера." FontSize="13" Foreground="{StaticResource TextSecondaryBrush}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="White" Padding="16,12" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <TextBlock Text="Mercedes-Benz — лучшее для лучших" Foreground="#666" HorizontalAlignment="Center" FontSize="12"/>
+        </Border>
+    </Grid>
+</Page>

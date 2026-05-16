@@ -397,4 +397,14 @@ public partial class MainPage : Page
     {
         NavigationService?.Navigate(new AdminPage());
     }
+
+    private void AboutButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        NavigationService?.Navigate(new AboutPage());
+    }
+
+    private void HelpButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        NavigationService?.Navigate(new HelpPage());
+    }
 }

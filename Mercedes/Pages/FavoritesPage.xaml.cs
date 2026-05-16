@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Mercedes.Data.Data;
+using Mercedes.Data.Enums;
 using Mercedes.Data.Models;
 using Mercedes.Services;
 using Microsoft.EntityFrameworkCore;
@@ -98,6 +99,74 @@ public partial class FavoritesPage : Page
                 {
                     MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+    }
+
+    private void BuyCar_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.Tag is Guid carId)
+        {
+            try
+            {
+                var currentUser = SessionService.Instance.CurrentUser;
+                if (currentUser == null)
+                {
+                    MessageBox.Show("Для покупки необходимо войти в систему", "Требуется авторизация", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var car = _context.Cars.FirstOrDefault(c => c.Id == carId);
+                if (car == null)
+                {
+                    MessageBox.Show("Автомобиль не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (!car.IsAviable)
+                {
+                    MessageBox.Show("Этот автомобиль уже продан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    LoadFavorites();
+                    return;
+                }
+
+                var result = MessageBox.Show(
+                    $"Вы уверены, что хотите приобрести {car.Model} за {car.Price:N0}?\n\nДля подтверждения покупки с вами свяжется менеджер.",
+                    "Подтверждение покупки",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Создаём запись о продаже
+                    var sale = new Sale
+                    {
+                        UserId = currentUser.Id,
+                        CarId = car.Id,
+                        Price = car.Price,
+                        Status = SaleStatus.Pending,
+                        CreatedAt = DateTime.UtcNow
+                    };
+
+                    _context.Sales.Add(sale);
+
+                    // Помечаем автомобиль как проданный
+                    car.IsAviable = false;
+
+                    _context.SaveChanges();
+
+                    MessageBox.Show(
+                        $"Спасибо за покупку {car.Model}!\n\nМенеджер свяжется с вами в ближайшее время для уточнения деталей.",
+                        "Покупка оформлена",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+
+                    LoadFavorites();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при оформлении покупки: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
