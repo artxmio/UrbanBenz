@@ -14,6 +14,7 @@
 
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:StatusToRussianConverter x:Key="StatusToRussianConverter"/>
         <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
         <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
         <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
@@ -193,7 +194,7 @@
                                             <StackPanel Grid.Column="0">
                                                 <TextBlock Text="{Binding Car.Model}" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"/>
                                                 <TextBlock Text="{Binding CreatedAt, StringFormat=dd.MM.yyyy HH:mm}" FontSize="11" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,2,0,0"/>
-                                                <TextBlock Text="{Binding Status}" FontSize="11" Margin="0,2,0,0">
+                                                <TextBlock Text="{Binding Status, Converter={StaticResource StatusToRussianConverter}}" FontSize="11" Margin="0,2,0,0">
                                                     <TextBlock.Style>
                                                         <Style TargetType="TextBlock">
                                                             <Style.Triggers>
@@ -212,7 +213,7 @@
                                                 </TextBlock>
                                             </StackPanel>
                                             
-                                            <TextBlock Grid.Column="1" Text="{Binding Price, StringFormat=N0 ₽}" FontSize="14" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Price, StringFormat=0 BYN}" FontSize="14" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center" Margin="8,0,0,0"/>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
