@@ -119,7 +119,7 @@
 
         <!-- Табы с данными -->
         <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0" Padding="16,12">
-            
+
             <!-- Пользователи -->
             <TabItem Header="👥 Пользователи" Style="{StaticResource TabItemStyle}">
                 <Grid>
@@ -128,7 +128,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -137,7 +137,7 @@
                         <TextBlock Text="Все пользователи системы" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center"/>
                         <Button Grid.Column="1" Content="📊 Excel" Style="{StaticResource AccentButtonStyle}" Padding="12,6" Click="ExportUsers_Click"/>
                     </Grid>
-                    
+
                     <DataGrid x:Name="UsersDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
@@ -158,7 +158,7 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    
+
                     <Button Grid.Row="2" Content="💾 Сохранить изменения" Style="{StaticResource AccentButtonStyle}" Margin="0,12,0,0" Padding="20,10" FontSize="14" Click="SaveUsers_Click"/>
                 </Grid>
             </TabItem>
@@ -171,7 +171,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -182,7 +182,7 @@
                         <Button Grid.Column="1" Content="📊 Excel" Style="{StaticResource AccentButtonStyle}" Padding="12,6" Margin="0,0,8,0" Click="ExportCars_Click"/>
                         <Button Grid.Column="2" Content="➕ Добавить" Style="{StaticResource AccentButtonStyle}" Padding="12,6" Click="AddCar_Click"/>
                     </Grid>
-                    
+
                     <DataGrid x:Name="CarsDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
@@ -204,7 +204,7 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    
+
                     <Button Grid.Row="2" Content="💾 Сохранить изменения" Style="{StaticResource AccentButtonStyle}" Margin="0,12,0,0" Padding="20,10" FontSize="14" Click="SaveCars_Click"/>
                 </Grid>
             </TabItem>
@@ -216,7 +216,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -225,8 +225,8 @@
                         <TextBlock Text="Все записи на тест-драйв" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center"/>
                         <Button Grid.Column="1" Content="📊 Excel" Style="{StaticResource AccentButtonStyle}" Padding="12,6" Click="ExportTestDrives_Click"/>
                     </Grid>
-                    
-                    <DataGrid x:Name="TestDrivesDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
+
+                    <DataGrid x:Name="TestDrivesDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False" ui:Grid.ColumnSpan="3">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding User.FirstName}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
@@ -256,7 +256,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -265,14 +265,14 @@
                         <TextBlock Text="Все продажи" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center"/>
                         <Button Grid.Column="1" Content="📊 Excel" Style="{StaticResource AccentButtonStyle}" Padding="12,6" Click="ExportSales_Click"/>
                     </Grid>
-                    
+
                     <DataGrid x:Name="SalesDataGrid" Grid.Row="1" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding User.FirstName}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Email" Binding="{Binding User.Email}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Автомобиль" Binding="{Binding Car.Model}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat=N0 ₽}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat=0 BYN}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy HH:mm}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Статус" Binding="{Binding Status, Converter={StaticResource StatusToRussianConverter}}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTemplateColumn Header="Действия" Width="180" HeaderStyle="{StaticResource DataGridHeaderStyle}">
@@ -291,7 +291,7 @@
             </TabItem>
 
             <!-- О приложении -->
-            
+
 
             <!-- Статистика -->
             <TabItem Header="📊 Статистика" Style="{StaticResource TabItemStyle}">
@@ -301,9 +301,9 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        
+
                         <TextBlock Grid.Row="0" Text="Статистика продаж" FontSize="20" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,16"/>
-                        
+
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"/>
@@ -313,7 +313,7 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            
+
                             <!-- Продажи по месяцам -->
                             <Border Grid.Column="0" Grid.Row="0" Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="16" Margin="0,0,8,8">
                                 <StackPanel>
@@ -321,7 +321,7 @@
                                     <oxy:PlotView x:Name="SalesByMonthPlot" Height="200"/>
                                 </StackPanel>
                             </Border>
-                            
+
                             <!-- Автомобили по типу -->
                             <Border Grid.Column="1" Grid.Row="0" Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="16" Margin="8,0,0,8">
                                 <StackPanel>
@@ -329,7 +329,7 @@
                                     <oxy:PlotView x:Name="CarsByTypePlot" Height="300"/>
                                 </StackPanel>
                             </Border>
-                            
+
                             <!-- Статус тест-драйвов -->
                             <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="16" Margin="0,8,8,0">
                                 <StackPanel>
@@ -337,7 +337,7 @@
                                     <oxy:PlotView x:Name="TestDrivesStatusPlot" Height="300"/>
                                 </StackPanel>
                             </Border>
-                            
+
                             <!-- Общая статистика -->
                             <Border Grid.Column="1" Grid.Row="1" Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="16" Margin="8,8,0,0">
                                 <StackPanel>
@@ -353,32 +353,32 @@
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        
+
                                         <StackPanel Grid.Column="0" Grid.Row="0" Margin="0,0,0,8">
                                             <TextBlock Text="Всего пользователей" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
                                             <TextBlock x:Name="TotalUsersText" Text="0" FontSize="24" FontWeight="Bold" Foreground="#00A6FF"/>
                                         </StackPanel>
-                                        
+
                                         <StackPanel Grid.Column="1" Grid.Row="0" Margin="0,0,0,8">
                                             <TextBlock Text="Всего автомобилей" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
                                             <TextBlock x:Name="TotalCarsText" Text="0" FontSize="24" FontWeight="Bold" Foreground="#00A6FF"/>
                                         </StackPanel>
-                                        
+
                                         <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,0,0,8">
                                             <TextBlock Text="Продано автомобилей" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
                                             <TextBlock x:Name="SoldCarsText" Text="0" FontSize="24" FontWeight="Bold" Foreground="#28A745"/>
                                         </StackPanel>
-                                        
+
                                         <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,0,0,8">
                                             <TextBlock Text="Записей на тест-драйв" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
                                             <TextBlock x:Name="TotalTestDrivesText" Text="0" FontSize="24" FontWeight="Bold" Foreground="#FFA500"/>
                                         </StackPanel>
-                                        
+
                                         <StackPanel Grid.Column="0" Grid.Row="2" Margin="0,0,0,8">
                                             <TextBlock Text="Выручка" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
                                             <TextBlock x:Name="TotalRevenueText" Text="0 BYN" FontSize="24" FontWeight="Bold" Foreground="#28A745"/>
                                         </StackPanel>
-                                        
+
                                         <StackPanel Grid.Column="1" Grid.Row="2" Margin="0,0,0,8">
                                             <TextBlock Text="В наличии" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
                                             <TextBlock x:Name="AvailableCarsText" Text="0" FontSize="24" FontWeight="Bold" Foreground="#00A6FF"/>
