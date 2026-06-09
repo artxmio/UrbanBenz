@@ -1,4 +1,5 @@
 ﻿using Mercedes.Data.Enums;
+using Mercedes.Data.Models;
 using System.Globalization;
 using System.Windows.Data;
 
@@ -16,6 +17,17 @@ public class StatusToRussianConverter : IValueConverter
                 SaleStatus.Completed => "Выполнено",
                 SaleStatus.Cancelled => "Отменено",
                 _ => status.ToString()
+            };
+        }
+
+        if(value is TestDriveStatus driveStatus)
+        {
+            return driveStatus switch
+            {
+                TestDriveStatus.Pending => "Ожидает",
+                TestDriveStatus.Completed => "Выполнено",
+                TestDriveStatus.Cancelled => "Отменено",
+                _ => driveStatus.ToString()
             };
         }
 

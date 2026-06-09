@@ -9,6 +9,7 @@ using ClosedXML.Excel;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using Mercedes.Converters;
 
 namespace Mercedes.Pages;
 
@@ -336,10 +337,10 @@ public partial class AdminPage : Page
         try
         {
             var users = _context.Users.OrderByDescending(u => u.CreatedAt).ToList();
-            
+
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Пользователи");
-            
+
             // Заголовки
             worksheet.Cell(1, 1).Value = "ID";
             worksheet.Cell(1, 2).Value = "Имя";
@@ -349,12 +350,12 @@ public partial class AdminPage : Page
             worksheet.Cell(1, 6).Value = "Роль";
             worksheet.Cell(1, 7).Value = "Активен";
             worksheet.Cell(1, 8).Value = "Дата регистрации";
-            
+
             var headerRange = worksheet.Range(1, 1, 1, 8);
             headerRange.Style.Font.Bold = true;
             headerRange.Style.Fill.BackgroundColor = XLColor.FromHtml("#1A1A1A");
             headerRange.Style.Font.FontColor = XLColor.White;
-            
+
             // Данные
             for (int i = 0; i < users.Count; i++)
             {
@@ -368,15 +369,15 @@ public partial class AdminPage : Page
                 worksheet.Cell(i + 2, 7).Value = user.IsActive ? "Да" : "Нет";
                 worksheet.Cell(i + 2, 8).Value = user.CreatedAt.ToString("dd.MM.yyyy HH:mm");
             }
-            
+
             worksheet.Columns().AdjustToContents();
-            
+
             var saveDialog = new Microsoft.Win32.SaveFileDialog
             {
                 Filter = "Excel files (*.xlsx)|*.xlsx",
                 FileName = $"users_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
             };
-            
+
             if (saveDialog.ShowDialog() == true)
             {
                 workbook.SaveAs(saveDialog.FileName);
@@ -394,10 +395,10 @@ public partial class AdminPage : Page
         try
         {
             var cars = _context.Cars.OrderByDescending(c => c.CreatedAt).ToList();
-            
+
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Автомобили");
-            
+
             // Заголовки
             worksheet.Cell(1, 1).Value = "ID";
             worksheet.Cell(1, 2).Value = "Модель";
@@ -409,12 +410,12 @@ public partial class AdminPage : Page
             worksheet.Cell(1, 8).Value = "Цена";
             worksheet.Cell(1, 9).Value = "VIN";
             worksheet.Cell(1, 10).Value = "В наличии";
-            
+
             var headerRange = worksheet.Range(1, 1, 1, 10);
             headerRange.Style.Font.Bold = true;
             headerRange.Style.Fill.BackgroundColor = XLColor.FromHtml("#1A1A1A");
             headerRange.Style.Font.FontColor = XLColor.White;
-            
+
             // Данные
             for (int i = 0; i < cars.Count; i++)
             {
@@ -430,15 +431,15 @@ public partial class AdminPage : Page
                 worksheet.Cell(i + 2, 9).Value = car.VinNumber;
                 worksheet.Cell(i + 2, 10).Value = car.IsAviable ? "В наличии" : "Нет в наличии";
             }
-            
+
             worksheet.Columns().AdjustToContents();
-            
+
             var saveDialog = new Microsoft.Win32.SaveFileDialog
             {
                 Filter = "Excel files (*.xlsx)|*.xlsx",
                 FileName = $"cars_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
             };
-            
+
             if (saveDialog.ShowDialog() == true)
             {
                 workbook.SaveAs(saveDialog.FileName);
@@ -460,10 +461,10 @@ public partial class AdminPage : Page
                 .Include(t => t.Car)
                 .OrderByDescending(t => t.RequestedDate)
                 .ToList();
-            
+
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Тест-драйвы");
-            
+
             // Заголовки
             worksheet.Cell(1, 1).Value = "ID";
             worksheet.Cell(1, 2).Value = "Клиент";
@@ -472,12 +473,12 @@ public partial class AdminPage : Page
             worksheet.Cell(1, 5).Value = "Автомобиль";
             worksheet.Cell(1, 6).Value = "Дата";
             worksheet.Cell(1, 7).Value = "Статус";
-            
+
             var headerRange = worksheet.Range(1, 1, 1, 7);
             headerRange.Style.Font.Bold = true;
             headerRange.Style.Fill.BackgroundColor = XLColor.FromHtml("#1A1A1A");
             headerRange.Style.Font.FontColor = XLColor.White;
-            
+
             // Данные
             for (int i = 0; i < testDrives.Count; i++)
             {
@@ -490,15 +491,15 @@ public partial class AdminPage : Page
                 worksheet.Cell(i + 2, 6).Value = td.RequestedDate.ToString("dd.MM.yyyy HH:mm");
                 worksheet.Cell(i + 2, 7).Value = td.Status.ToString();
             }
-            
+
             worksheet.Columns().AdjustToContents();
-            
+
             var saveDialog = new Microsoft.Win32.SaveFileDialog
             {
                 Filter = "Excel files (*.xlsx)|*.xlsx",
                 FileName = $"testdrives_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
             };
-            
+
             if (saveDialog.ShowDialog() == true)
             {
                 workbook.SaveAs(saveDialog.FileName);
@@ -520,10 +521,10 @@ public partial class AdminPage : Page
                 .Include(s => s.Car)
                 .OrderByDescending(s => s.CreatedAt)
                 .ToList();
-            
+
             using var workbook = new XLWorkbook();
             var worksheet = workbook.Worksheets.Add("Продажи");
-            
+
             // Заголовки
             worksheet.Cell(1, 1).Value = "ID";
             worksheet.Cell(1, 2).Value = "Клиент";
@@ -532,12 +533,12 @@ public partial class AdminPage : Page
             worksheet.Cell(1, 5).Value = "Цена";
             worksheet.Cell(1, 6).Value = "Дата";
             worksheet.Cell(1, 7).Value = "Статус";
-            
+
             var headerRange = worksheet.Range(1, 1, 1, 7);
             headerRange.Style.Font.Bold = true;
             headerRange.Style.Fill.BackgroundColor = XLColor.FromHtml("#1A1A1A");
             headerRange.Style.Font.FontColor = XLColor.White;
-            
+
             // Данные
             for (int i = 0; i < sales.Count; i++)
             {
@@ -550,15 +551,15 @@ public partial class AdminPage : Page
                 worksheet.Cell(i + 2, 6).Value = sale.CreatedAt.ToString("dd.MM.yyyy HH:mm");
                 worksheet.Cell(i + 2, 7).Value = sale.Status.ToString();
             }
-            
+
             worksheet.Columns().AdjustToContents();
-            
+
             var saveDialog = new Microsoft.Win32.SaveFileDialog
             {
                 Filter = "Excel files (*.xlsx)|*.xlsx",
                 FileName = $"sales_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
             };
-            
+
             if (saveDialog.ShowDialog() == true)
             {
                 workbook.SaveAs(saveDialog.FileName);
@@ -615,7 +616,7 @@ public partial class AdminPage : Page
                 Position = AxisPosition.Left,
                 Minimum = 0
             });
-            
+
             var lineSeries = new LineSeries
             {
                 Color = OxyColors.DeepSkyBlue,
@@ -624,12 +625,12 @@ public partial class AdminPage : Page
                 MarkerSize = 6,
                 MarkerFill = OxyColors.DeepSkyBlue
             };
-            
+
             for (int i = 0; i < salesByMonth.Count; i++)
             {
                 lineSeries.Points.Add(new DataPoint(i, salesByMonth[i].Count));
             }
-            
+
             salesPlotModel.Series.Add(lineSeries);
             SalesByMonthPlot.Model = salesPlotModel;
 
@@ -644,7 +645,7 @@ public partial class AdminPage : Page
                 .ToList();
 
             var carsTypePlotModel = new PlotModel { Title = "Автомобили по типу кузова" };
-            
+
             var pieSeries = new PieSeries
             {
                 StrokeThickness = 2,
@@ -652,7 +653,7 @@ public partial class AdminPage : Page
                 AngleSpan = 360,
                 StartAngle = 0
             };
-            
+
             foreach (var item in carsByType)
             {
                 pieSeries.Slices.Add(new PieSlice(item.Type, item.Count)
@@ -663,7 +664,7 @@ public partial class AdminPage : Page
                         (byte)(item.Count * 150 % 256))
                 });
             }
-            
+
             carsTypePlotModel.Series.Add(pieSeries);
             CarsByTypePlot.Model = carsTypePlotModel;
 
@@ -672,13 +673,26 @@ public partial class AdminPage : Page
                 .GroupBy(t => t.Status)
                 .Select(g => new
                 {
-                    Status = g.Key.ToString(),
+                    StatusKey = g.Key.ToString(), 
                     Count = g.Count()
+                })
+                .AsEnumerable() 
+                .Select(g => new
+                {
+                    Status = g.StatusKey switch
+                    {
+                        "Pending" => "В ожидании",
+                        "Approved" => "Подтверждено",
+                        "Rejected" => "Отклонено",
+                        "Completed" => "Завершено",
+                        _ => g.StatusKey ?? "Неизвестно"
+                    },
+                    g.Count
                 })
                 .ToList();
 
             var testDrivesPlotModel = new PlotModel { Title = "Статус тест-драйвов" };
-            
+
             var pieSeries2 = new PieSeries
             {
                 StrokeThickness = 2,
@@ -697,7 +711,7 @@ public partial class AdminPage : Page
                         (byte)(item.Count * 160 % 256))
                 });
             }
-            
+
             testDrivesPlotModel.Series.Add(pieSeries2);
             TestDrivesStatusPlot.Model = testDrivesPlotModel;
         }

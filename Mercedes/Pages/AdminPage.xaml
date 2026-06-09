@@ -21,7 +21,7 @@
         <converters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter"/>
         <converters:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-
+        <converters:StatusToRussianConverter x:Key="StatusToRussianConverter"/>
         <SolidColorBrush x:Key="AccentBrush" Color="#00A6FF"/>
         <SolidColorBrush x:Key="BackgroundBrush" Color="#F5F5F5"/>
         <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
@@ -233,7 +233,7 @@
                             <DataGridTextColumn Header="Email" Binding="{Binding User.Email}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Автомобиль" Binding="{Binding Car.Model}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding RequestedDate, StringFormat=dd.MM.yyyy HH:mm}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Статус" Binding="{Binding Status, Converter={StaticResource StatusToRussianConverter}}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTemplateColumn Header="Действия" Width="180" HeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -274,7 +274,7 @@
                             <DataGridTextColumn Header="Автомобиль" Binding="{Binding Car.Model}" Width="1.5*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat=N0 ₽}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy HH:mm}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
-                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
+                            <DataGridTextColumn Header="Статус" Binding="{Binding Status, Converter={StaticResource StatusToRussianConverter}}" Width="*" IsReadOnly="True" HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTemplateColumn Header="Действия" Width="180" HeaderStyle="{StaticResource DataGridHeaderStyle}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -326,7 +326,7 @@
                             <Border Grid.Column="1" Grid.Row="0" Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="16" Margin="8,0,0,8">
                                 <StackPanel>
                                     <TextBlock Text="Автомобили по типу кузова" FontSize="14" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8" HorizontalAlignment="Center"/>
-                                    <oxy:PlotView x:Name="CarsByTypePlot" Height="200"/>
+                                    <oxy:PlotView x:Name="CarsByTypePlot" Height="300"/>
                                 </StackPanel>
                             </Border>
                             
@@ -334,7 +334,7 @@
                             <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="16" Margin="0,8,8,0">
                                 <StackPanel>
                                     <TextBlock Text="Статус тест-драйвов" FontSize="14" FontWeight="Medium" Foreground="{StaticResource TextPrimaryBrush}" Margin="0,0,0,8" HorizontalAlignment="Center"/>
-                                    <oxy:PlotView x:Name="TestDrivesStatusPlot" Height="200"/>
+                                    <oxy:PlotView x:Name="TestDrivesStatusPlot" Height="300"/>
                                 </StackPanel>
                             </Border>
                             
