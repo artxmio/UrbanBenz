@@ -144,7 +144,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
-                            <TextBlock Text="Цена (₽) *" Style="{StaticResource LabelStyle}"/>
+                            <TextBlock Text="Цена (BYN) *" Style="{StaticResource LabelStyle}"/>
                             <Border Style="{StaticResource InputBorderStyle}">
                                 <TextBox x:Name="PriceTextBox" Style="{StaticResource InputStyle}" Text=""/>
                             </Border>

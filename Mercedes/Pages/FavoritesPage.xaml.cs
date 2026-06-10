@@ -37,6 +37,7 @@ public partial class FavoritesPage : Page
 
             var favorites = _context.Favorites
                 .Include(f => f.Car)
+                .ThenInclude(c => c.Images)
                 .Where(f => f.UserId == currentUser.Id)
                 .OrderByDescending(f => f.CreatedAt)
                 .ToList();
@@ -52,6 +53,8 @@ public partial class FavoritesPage : Page
                 FavoritesItemsControl.Visibility = Visibility.Visible;
                 FavoritesItemsControl.ItemsSource = favorites;
             }
+
+            DataContext = favorites;
         }
         catch (Exception ex)
         {
