@@ -123,7 +123,7 @@
 
                                     <Border Grid.Row="0" Background="#2D2D2D" CornerRadius="8,8,0,0" Margin="-16,-16,-16,0">
                                         <Grid>
-                                            <Image Stretch="Uniform" Margin="8" Source="{Binding Converter={StaticResource ImagePathConverter}}"/>
+                                            <Image Stretch="Uniform" Margin="8" Source="{Binding Car, Converter={StaticResource ImagePathConverter}}"/>
                                             <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="{Binding IsAviable, Converter={StaticResource BoolToStatusColorConverter}}" CornerRadius="0,8,0,8" Padding="10,4" Margin="0">
                                                 <TextBlock Text="{Binding Car.IsAviable, Converter={StaticResource BoolToYesNoConverter}}" Foreground="White" FontSize="10" FontWeight="Bold"/>
                                             </Border>
