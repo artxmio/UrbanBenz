@@ -685,6 +685,7 @@ public partial class AdminPage : Page
                         "Approved" => "Подтверждено",
                         "Rejected" => "Отклонено",
                         "Completed" => "Завершено",
+                        "Confirmed" => "Подтверждено",
                         _ => g.StatusKey ?? "Неизвестно"
                     },
                     g.Count

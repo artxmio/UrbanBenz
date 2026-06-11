@@ -25,6 +25,7 @@ public class StatusToRussianConverter : IValueConverter
             return driveStatus switch
             {
                 TestDriveStatus.Pending => "Ожидает",
+                TestDriveStatus.Confirmed => "Подтверждено",
                 TestDriveStatus.Completed => "Выполнено",
                 TestDriveStatus.Cancelled => "Отменено",
                 _ => driveStatus.ToString()
